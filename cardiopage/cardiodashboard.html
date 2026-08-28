@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cardiac Calculators &middot; Smart Medical Calculator</title>
+<style>
+/* ==========================================================================
+   Smart Medical Calculator — Design System
+   Modern healthcare SaaS: soft light theme, calm blue/green, rounded cards
+   ========================================================================== */
+ 
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
+ 
+:root{
+  /* ---- Core palette ---- */
+  --bg:            #F5F9F8;
+  --surface:       #FFFFFF;
+  --surface-alt:   #EEF5F3;
+  --border:        #DCE7E3;
+  --border-soft:   #E9F1EE;
+ 
+  --ink:           #16302B;
+  --ink-soft:      #52685F;
+  --ink-faint:     #86988F;
+ 
+  --primary:       #2F7A63;
+  --primary-dark:  #1F5C49;
+  --primary-tint:  #E3F2EC;
+  --primary-ring:  rgba(47,122,99,0.18);
+ 
+  /* ---- Category accents (color-codes each specialty consistently) ---- */
+  --cat-cardio:    #D93A3A;
+  --cat-cardio-tint: #FBEAEA;
+  --cat-blood:     #B5506E;
+  --cat-blood-tint:  #F8EAEF;
+  --cat-lungs:     #4A8FC4;
+  --cat-lungs-tint:  #E9F2FA;
+  --cat-kidney:    #C08A34;
+  --cat-kidney-tint: #FBF1DF;
+  --cat-neuro:     #7E67C6;
+  --cat-neuro-tint:  #EFECFA;
+  --cat-general:   #2F7A63;
+  --cat-general-tint: #E3F2EC;
+ 
+  --warn:          #B5506E;
+  --warn-tint:     #F8EAEF;
+ 
+  /* ---- Type ---- */
+  --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+ 
+  /* ---- Shape / elevation ---- */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --shadow-sm: 0 1px 2px rgba(22,48,43,0.06);
+  --shadow-md: 0 8px 24px rgba(22,48,43,0.08);
+  --shadow-lg: 0 16px 40px rgba(22,48,43,0.12);
+}
+ 
+*, *::before, *::after{ box-sizing: border-box; }
+ 
+html{ scroll-behavior: smooth; }
+ 
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+ 
+h1,h2,h3,h4{
+  font-family:var(--font-display);
+  color:var(--ink);
+  line-height:1.2;
+  margin:0 0 12px;
+}
+ 
+h1{ font-size:clamp(32px, 4vw, 46px); font-weight:800; letter-spacing:-0.02em; }
+h2{ font-size:26px; font-weight:700; letter-spacing:-0.01em; }
+h3{ font-size:19px; font-weight:700; }
+ 
+p{ margin:0 0 14px; color:var(--ink-soft); }
+ 
+a{ color:var(--primary); text-decoration:none; }
+ 
+::selection{ background:var(--primary-tint); color:var(--primary-dark); }
+ 
+:focus-visible{
+  outline:2.5px solid var(--primary);
+  outline-offset:2px;
+  border-radius:6px;
+}
+ 
+/* ---- Layout helpers ---- */
+.wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+ 
+/* ==========================================================================
+   NAVBAR
+   ========================================================================== */
+.site-nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border-soft);
+}
+.site-nav .wrap{
+  display:flex; align-items:center; justify-content:space-between;
+  height:72px;
+}
+.brand{
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--font-display); font-weight:800; font-size:17px;
+  color:var(--ink);
+}
+.brand .pulse-mark{ width:26px; height:18px; flex-shrink:0; }
+.brand .pulse-mark path{
+  fill:none; stroke:var(--primary); stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+}
+.nav-links{ display:flex; align-items:center; gap:30px; }
+.nav-links a{
+  color:var(--ink-soft); font-weight:600; font-size:14.5px;
+  padding:6px 0; border-bottom:2px solid transparent;
+  transition:color .18s ease, border-color .18s ease;
+}
+.nav-links a:hover{ color:var(--primary); border-color:var(--primary); }
+.nav-actions{ display:flex; align-items:center; gap:10px; }
+ 
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  font-family:var(--font-body); font-weight:600; font-size:14.5px;
+  padding:11px 22px; border-radius:999px; border:1.5px solid transparent;
+  cursor:pointer; transition:all .18s ease; white-space:nowrap;
+}
+.btn-primary{ background:var(--primary); color:#fff; }
+.btn-primary:hover{ background:var(--primary-dark); transform:translateY(-1px); box-shadow:var(--shadow-sm); }
+.btn-ghost{ background:transparent; color:var(--ink); border-color:var(--border); }
+.btn-ghost:hover{ border-color:var(--primary); color:var(--primary); }
+.btn-outline{ background:#fff; color:var(--primary); border-color:var(--primary-tint); }
+.btn-outline:hover{ background:var(--primary-tint); }
+.btn-block{ width:100%; }
+.btn-sm{ padding:8px 16px; font-size:13.5px; }
+ 
+/* ---- Home CTA (animated pill button) ---- */
+.cta {
+  position: relative;
+  margin: auto;
+  padding: 12px 18px;
+  transition: all 0.2s ease;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+ 
+.cta:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  border-radius: 50px;
+  background: var(--cat-cardio-tint);
+  width: 45px;
+  height: 45px;
+  transition: all 0.3s ease;
+}
+ 
+.cta span {
+  position: relative;
+  font-family: var(--font-body), sans-serif;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--cat-cardio);
+}
+ 
+.cta svg {
+  position: relative;
+  top: 0;
+  margin-left: 10px;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: var(--cat-cardio);
+  stroke-width: 2;
+  transform: translateX(-5px) rotate(180deg);
+  transition: all 0.3s ease;
+}
+ 
+.cta:hover:before {
+  width: 100%;
+  background: var(--cat-cardio-tint);
+  box-shadow: 0 4px 14px rgba(217,58,58,0.25);
+}
+ 
+.cta:hover svg {
+  transform: translateX(0) rotate(180deg);
+}
+ 
+.cta:active {
+  transform: scale(0.95);
+}
+ 
+/* ==========================================================================
+   HERO  (signature: animated ECG pulse trace)
+   ========================================================================== */
+.hero{
+  position:relative;
+  padding:88px 0 96px;
+  overflow:hidden;
+  background:
+    radial-gradient(680px 380px at 85% -10%, var(--primary-tint) 0%, transparent 70%),
+    radial-gradient(520px 320px at 5% 110%, var(--cat-lungs-tint) 0%, transparent 70%);
+}
+.hero .wrap{ position:relative; z-index:2; }
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:12.5px; font-weight:600;
+  letter-spacing:0.06em; text-transform:uppercase; color:var(--primary-dark);
+  background:var(--primary-tint); padding:7px 14px; border-radius:999px;
+  margin-bottom:22px;
+}
+.hero-copy{ max-width:600px; }
+.hero p.lead{ font-size:17.5px; color:var(--ink-soft); max-width:520px; margin-bottom:0; }
+.hero-copy{ margin-bottom:46px; }
+.hero-cta{ display:flex; gap:12px; margin-bottom:56px; }
+ 
+.pulse-strip{
+  width:100%; height:64px;
+  display:block;
+}
+.pulse-strip path{
+  fill:none; stroke:var(--primary); stroke-width:2.25; stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray:600; stroke-dashoffset:600;
+  animation:draw-pulse 3.2s ease-in-out infinite;
+}
+@keyframes draw-pulse{
+  0%{ stroke-dashoffset:600; }
+  55%{ stroke-dashoffset:0; }
+  100%{ stroke-dashoffset:-600; }
+}
+@media (prefers-reduced-motion: reduce){
+  .pulse-strip path{ animation:none; stroke-dashoffset:0; }
+}
+ 
+.stat-row{ display:flex; gap:44px; flex-wrap:wrap; }
+.stat-row .stat b{
+  display:block; font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--ink);
+}
+.stat-row .stat span{ font-size:13px; color:var(--ink-faint); }
+ 
+/* ==========================================================================
+   CATEGORY GRID (dashboard + homepage overview)
+   ========================================================================== */
+.section-head{ margin-bottom:34px; max-width:560px; }
+.section-head p{ margin:0; }
+ 
+.cat-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:22px;
+}
+.cat-card{
+  --accent: var(--primary);
+  --accent-tint: var(--primary-tint);
+  position:relative;
+  background:var(--surface);
+  border:1px solid var(--border-soft);
+  border-radius:var(--radius-md);
+  padding:26px 24px 24px;
+  box-shadow:var(--shadow-sm);
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.cat-card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-md);
+  border-color:var(--accent-tint);
+}
+.cat-icon{
+  width:46px; height:46px; border-radius:13px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--accent-tint);
+  margin-bottom:16px;
+}
+.cat-icon svg{ width:22px; height:22px; stroke:var(--accent); fill:none; stroke-width:1.8; }
+.cat-card h3{ margin-bottom:6px; }
+.cat-card p{ font-size:14px; margin-bottom:18px; min-height:42px; }
+.cat-card .cat-count{
+  font-family:var(--font-mono); font-size:12px; color:var(--accent);
+  background:var(--accent-tint); padding:3px 10px; border-radius:999px;
+  display:inline-block; margin-bottom:14px; font-weight:600;
+}
+.cat-link{
+  display:inline-flex; align-items:center; gap:6px;
+  font-weight:600; font-size:14px; color:var(--accent);
+}
+.cat-link svg{ width:14px; height:14px; stroke:var(--accent); fill:none; stroke-width:2; transition:transform .18s ease; }
+.cat-card:hover .cat-link svg{ transform:translateX(3px); }
+ 
+.cat-card.cardio{ --accent:var(--cat-cardio); --accent-tint:var(--cat-cardio-tint); }
+.cat-card.blood{  --accent:var(--cat-blood);  --accent-tint:var(--cat-blood-tint); }
+.cat-card.lungs{  --accent:var(--cat-lungs);  --accent-tint:var(--cat-lungs-tint); }
+.cat-card.kidney{ --accent:var(--cat-kidney); --accent-tint:var(--cat-kidney-tint); }
+.cat-card.neuro{  --accent:var(--cat-neuro);  --accent-tint:var(--cat-neuro-tint); }
+.cat-card.general{--accent:var(--cat-general);--accent-tint:var(--cat-general-tint); }
+ 
+@media (max-width:980px){ .cat-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:620px){ .cat-grid{ grid-template-columns:1fr; } }
+ 
+/* ==========================================================================
+   CALCULATOR LIST PAGES (per-category index)
+   ========================================================================== */
+.calc-list{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+.calc-row{
+  position:relative;
+  display:flex; align-items:center; justify-content:space-between;
+  background:var(--surface); border:1px solid var(--border-soft);
+  border-left:3px solid var(--border-soft);
+  border-radius:var(--radius-sm); padding:18px 20px;
+  transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.calc-row::before{
+  content:"";
+  position:absolute; left:50%; bottom:-9px;
+  width:0; height:3px; border-radius:3px;
+  background:linear-gradient(90deg, var(--cat-cardio), #ff7a7a);
+  transform:translateX(-50%);
+  transition:width .3s ease;
+}
+.calc-row:hover::before{ width:calc(100% - 12px); }
+.calc-row:active::before{ width:calc(100% - 12px); background:linear-gradient(90deg, #b62c2c, var(--cat-cardio)); }
+.calc-row:hover{
+  border-color:var(--cat-cardio-tint);
+  border-left-color:var(--cat-cardio);
+  background:#fffafa;
+  transform:translateY(-3px) translateX(2px);
+  box-shadow:0 10px 24px rgba(217,58,58,0.14);
+}
+.calc-row:active{ transform:translateY(-1px) scale(0.98); box-shadow:0 4px 12px rgba(217,58,58,0.18); }
+.calc-row-title{ position:relative; font-weight:700; font-size:15px; color:var(--cat-cardio); transition:color .2s ease; }
+.calc-row:hover .calc-row-title{ color:#b62c2c; }
+.calc-row-sub{ position:relative; font-size:13px; color:var(--ink-faint); margin-top:2px; }
+.calc-row-go{
+  position:relative;
+  width:32px; height:32px; border-radius:50%; background:var(--cat-cardio-tint);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  transition:background .2s ease, transform .3s ease;
+}
+.calc-row-go svg{ width:14px; height:14px; stroke:var(--cat-cardio); fill:none; stroke-width:2.2; transition:stroke .2s ease; }
+.calc-row:hover .calc-row-go{ background:var(--cat-cardio); transform:rotate(-360deg) scale(1.08); }
+.calc-row:hover .calc-row-go svg{ stroke:#fff; }
+@media (max-width:700px){ .calc-list{ grid-template-columns:1fr; } }
+ 
+/* ==========================================================================
+   CALCULATOR PAGE (form + result readout)
+   ========================================================================== */
+.calc-hero{
+  position:relative;
+  overflow:hidden;
+  border-bottom:1px solid var(--border-soft);
+  background:
+    radial-gradient(520px 260px at 92% -30%, rgba(217,58,58,0.14) 0%, transparent 70%),
+    linear-gradient(180deg, var(--accent-tint, var(--surface-alt)) 0%, #fdf3f3 100%);
+  padding:52px 0 46px;
+}
+.calc-hero::before{
+  content:"";
+  position:absolute; top:-60px; right:-60px;
+  width:220px; height:220px; border-radius:50%;
+  background:radial-gradient(circle, rgba(217,58,58,0.10) 0%, transparent 72%);
+  pointer-events:none;
+}
+.calc-hero-icon{
+  position:absolute; top:44px; right:48px;
+  width:64px; height:64px; border-radius:18px;
+  background:#fff; box-shadow:var(--shadow-md);
+  display:flex; align-items:center; justify-content:center;
+  transform:rotate(-6deg);
+}
+.calc-hero-icon svg{ width:30px; height:30px; stroke:var(--cat-cardio); fill:none; stroke-width:2; }
+@media (max-width:700px){ .calc-hero-icon{ display:none; } }
+.breadcrumb{
+  display:flex; align-items:center; gap:6px;
+  font-size:13px; font-weight:600; color:var(--ink-faint); margin-bottom:18px;
+}
+.breadcrumb a{ color:var(--ink-faint); font-weight:600; transition:color .15s ease; }
+.breadcrumb a:hover{ color:var(--cat-cardio); }
+.breadcrumb .sep{ color:var(--border); font-weight:400; }
+.breadcrumb .current{ color:var(--cat-cardio); }
+.calc-tag{
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:var(--font-mono); font-size:11.5px; font-weight:700;
+  letter-spacing:0.08em; text-transform:uppercase;
+  color:#fff; background:linear-gradient(135deg, var(--cat-cardio) 0%, #b62c2c 100%);
+  padding:6px 14px; border-radius:999px; margin-bottom:18px;
+  box-shadow:0 6px 16px rgba(217,58,58,0.28);
+}
+.calc-tag .dot{ width:6px; height:6px; border-radius:50%; background:#fff; }
+.calc-hero h1{
+  font-size:clamp(30px, 3.6vw, 40px);
+  margin-bottom:12px;
+  max-width:600px;
+}
+.calc-hero p{ max-width:560px; margin:0; font-size:16.5px; color:var(--ink-soft); }
+ 
+.calc-body{ padding:44px 0 80px; }
+.calc-layout{
+  display:grid; grid-template-columns:1.15fr 0.85fr; gap:26px; align-items:start;
+}
+@media (max-width:900px){ .calc-layout{ grid-template-columns:1fr; } }
+ 
+.panel{
+  background:var(--surface); border:1px solid var(--border-soft);
+  border-radius:var(--radius-md); padding:30px; box-shadow:var(--shadow-sm);
+}
+.panel h2{ font-size:17px; margin-bottom:20px; }
+ 
+.field{ margin-bottom:18px; }
+.field label{
+  display:block; font-size:13px; font-weight:600; color:var(--ink-soft);
+  margin-bottom:7px;
+}
+.field .unit{ font-weight:500; color:var(--ink-faint); }
+.field input, .field select{
+  width:100%; padding:13px 14px; font-size:15px; font-family:var(--font-body);
+  border:1.5px solid var(--border); border-radius:var(--radius-sm);
+  background:#fff; color:var(--ink); transition:border-color .16s ease, box-shadow .16s ease;
+}
+.field input:focus, .field select:focus{
+  outline:none; border-color:var(--primary); box-shadow:0 0 0 4px var(--primary-ring);
+}
+.field input::placeholder{ color:var(--ink-faint); }
+.field-actions{ display:flex; gap:10px; margin-top:26px; }
+ 
+/* ---- Result readout: light card, accented by category color ---- */
+.readout{
+  position:sticky; top:92px;
+  background:var(--surface); color:var(--ink);
+  border:1px solid var(--border-soft);
+  border-top:4px solid var(--accent, var(--primary));
+  border-radius:var(--radius-md);
+  padding:28px;
+  box-shadow:var(--shadow-md);
+}
+.readout-label{
+  font-family:var(--font-mono); font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--ink-faint); margin-bottom:10px;
+}
+.readout-value{
+  font-family:var(--font-mono); font-size:38px; font-weight:700; line-height:1.1;
+  color:var(--accent, var(--primary)); min-height:46px; word-break:break-word;
+}
+.readout-value .unit{ font-size:16px; color:var(--ink-faint); margin-left:6px; font-weight:500; }
+.readout-value.empty{ color:var(--ink-faint); font-size:16px; font-family:var(--font-body); font-weight:500; }
+.readout-value.text{ font-family:var(--font-body); font-size:21px; font-weight:700; line-height:1.4; color:var(--ink); }
+.readout-flag{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:12.5px; font-weight:600; padding:5px 12px; border-radius:999px;
+  margin-top:14px; background:var(--surface-alt); color:var(--ink-soft);
+}
+.readout-flag.ok{ background:#E4F5EC; color:#1F8F5F; }
+.readout-flag.warn{ background:#FBEAEA; color:#C23A3A; }
+.readout hr{ border:none; border-top:1px solid var(--border-soft); margin:22px 0; }
+.readout-note{ font-size:13px; color:var(--ink-faint); line-height:1.6; }
+ 
+/* ---- Formula disclosure (native <details>, no modal JS needed) ---- */
+.formula{
+  margin-top:22px; border:1px solid var(--border-soft); border-radius:var(--radius-sm);
+  background:var(--surface-alt); overflow:hidden;
+}
+.formula summary{
+  cursor:pointer; list-style:none; padding:15px 18px;
+  display:flex; align-items:center; justify-content:space-between;
+  font-weight:600; font-size:14px; color:var(--ink);
+}
+.formula summary::-webkit-details-marker{ display:none; }
+.formula summary .chev{ width:16px; height:16px; stroke:var(--ink-faint); fill:none; stroke-width:2; transition:transform .2s ease; }
+.formula[open] summary .chev{ transform:rotate(180deg); }
+.formula-body{ padding:0 18px 18px; font-size:14px; color:var(--ink-soft); }
+.formula-eq{
+  font-family:var(--font-mono); font-size:14.5px; background:#fff;
+  border:1px solid var(--border); border-radius:8px; padding:12px 14px;
+  margin:0 0 12px; color:var(--ink);
+}
+.formula-example{ font-size:13.5px; color:var(--ink-faint); line-height:1.7; }
+ 
+/* ==========================================================================
+   FOOTER (compact, black)
+   ========================================================================== */
+.site-footer{ background:#000; color:rgba(255,255,255,0.6); padding:18px 0 12px; margin-top:60px; }
+.footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; margin-bottom:36px; }
+.footer-brand{ font-family:var(--font-display); font-weight:800; color:#fff; font-size:16px; margin-bottom:10px; }
+.footer-col h4{ color:#fff; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px; font-family:var(--font-body); font-weight:700; }
+.footer-col a{ display:block; color:rgba(255,255,255,0.65); font-size:14px; margin-bottom:9px; }
+.footer-col a:hover{ color:#fff; }
+.footer-bottom{ border-top:1px solid rgba(255,255,255,0.12); padding-top:12px; font-size:11.5px; color:rgba(255,255,255,0.45); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+@media (max-width:800px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+ 
+/* ==========================================================================
+   DASHBOARD NAV (logged-in variant)
+   ========================================================================== */
+.dash-nav{ background:var(--ink); }
+.dash-nav .nav-links a{ color:rgba(255,255,255,0.7); }
+.dash-nav .nav-links a:hover{ color:#fff; }
+.dash-nav .brand{ color:#fff; }
+.dash-nav .brand .pulse-mark path{ stroke:#7CE8BE; }
+ 
+</style>
+</head>
+<body style="--accent:var(--cat-cardio); --accent-tint:var(--cat-cardio-tint); background:linear-gradient(180deg, var(--cat-cardio-tint) 0%, var(--bg) 420px);">
+ 
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="../homepage.html" class="brand">
+      <svg class="pulse-mark" viewBox="0 0 26 18"><path d="M0 9h6l2.5-7 5 16 3-9h9.5"/></svg>
+      Smart Medical Calculator
+    </a>
+    <div class="nav-actions">
+      <a class="cta" href="../homepage.html">
+        <span>Home</span>
+        <svg width="15px" height="10px" viewBox="0 0 13 10">
+          <path d="M1,5 L11,5"></path>
+          <polyline points="8 1 12 5 8 9"></polyline>
+        </svg>
+      </a>
+    </div>
+  </div>
+</nav>
+ 
+<header class="calc-hero">
+  <div class="calc-hero-icon">
+    <svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6Z"/><path d="M3 12h4l1.5-3L11 15l2-6 1.5 3H21"/></svg>
+  </div>
+  <div class="wrap">
+    <div class="breadcrumb">
+      <a href="../homepage.html">Home</a> <span class="sep">/</span> <span class="current">Cardiac</span>
+    </div>
+    <span class="calc-tag"><span class="dot"></span>Cardiac</span>
+    <h1>Cardiac Calculators</h1>
+    <p>Ten calculators covering cardiac output, blood pressure, heart rate, and related cardiovascular measures.</p>
+  </div>
+</header>
+ 
+<main class="calc-body">
+  <div class="wrap">
+    <div class="calc-list">
+ 
+      <a class="calc-row" href="BMI.html">
+        <div>
+          <div class="calc-row-title">BMI Calculator</div>
+          <div class="calc-row-sub">Body Mass Index from weight &amp; height</div>
+        </div>
+        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+ 
+      <a class="calc-row" href="bloodPressureCatogury.html">
+        <div>
+          <div class="calc-row-title">Blood Pressure Calculator</div>
+          <div class="calc-row-sub">Classify systolic / diastolic reading</div>
+        </div>
+        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+ 
+      <a class="calc-row" href="cardicoutput.html">
+        <div>
+          <div class="calc-row-title">Cardiac Output Calculator</div>
+          <div class="calc-row-sub">From heart rate &amp; stroke volume</div>
+        </div>
+        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+ 
+      <a class="calc-row" href="meanartialpressure.html">
+        <div>
+          <div class="calc-row-title">Mean Arterial Pressure</div>
+          <div class="calc-row-sub">Average arterial pressure per cycle</div>
+        </div>
+        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+ 
+      <a class="calc-row" href="pulsepressure.html">
+        <div>
+          <div class="calc-row-title">Pulse Pressure Calculator</div>
+          <div class="calc-row-sub">Systolic minus diastolic</div>
+        </div>
+        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+ 
+      <a class="calc-row" href="ratepressureproduct.html">
+        <div>
+          <div class="calc-row-title">Rate Pressure Product</div>
+          <div class="calc-row-sub">Myocardial oxygen demand estimate</div>
+        </div>
+        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+ 
+      <a class="calc-row" href="stokevolume.html">
+        <div>
+          <div class="calc-row-title">Stroke Volume Calculator</div>
+          <div class="calc-row-sub">Volume ejected per heartbeat</div>
+        </div>
+        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+ 
+      <a class="calc-row" href="surfacearea.html">
+        <div>
+          <div class="calc-row-title">Body Surface Area</div>
+          <div class="calc-row-sub">Mosteller formula, for dosing &amp; cardiac index</div>
+        </div>
+        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+ 
+      <a class="calc-row" href="TargetHeartRate.html">
+        <div>
+          <div class="calc-row-title">Target Heart Rate</div>
+          <div class="calc-row-sub">Training zone from age &amp; intensity</div>
+        </div>
+        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+ 
+      <a class="calc-row" href="PerfectBloodDonor.html">
+        <div>
+          <div class="calc-row-title">Blood Donor Compatibility</div>
+          <div class="calc-row-sub">ABO / Rh compatible donor lookup</div>
+        </div>
+        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+ 
+    </div>
+  </div>
+</main>
+ 
+<footer class="site-footer">
+  <div class="wrap footer-bottom" style="border-top:none;">
+    <span>&copy; 2026 Smart Medical Calculator</span>
+    <span>For educational &amp; clinical decision-support use &mdash; not a replacement for clinical judgment.</span>
+  </div>
+</footer>
+ 
+</body>
+</html>
