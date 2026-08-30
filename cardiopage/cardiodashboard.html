@@ -513,6 +513,24 @@ a{ color:var(--primary); text-decoration:none; }
 .dash-nav .brand{ color:#fff; }
 .dash-nav .brand .pulse-mark path{ stroke:#7CE8BE; }
  
+/* ---- Favorite star button (added) ---- */
+.calc-row{ gap:14px; }
+.calc-row-link{
+  display:flex; align-items:center; justify-content:space-between;
+  flex:1; min-width:0; text-decoration:none; color:inherit;
+}
+.fav-btn{
+  border:1.5px solid var(--border-soft); background:#fff;
+  width:30px; height:30px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all .18s ease; padding:0; flex-shrink:0;
+}
+.fav-btn svg{ width:15px; height:15px; stroke:var(--ink-faint); fill:none; stroke-width:2; transition:all .18s ease; }
+.fav-btn:hover{ border-color:var(--accent); }
+.fav-btn:hover svg{ stroke:var(--accent); }
+.fav-btn.active{ background:var(--accent-tint); border-color:var(--accent); }
+.fav-btn.active svg{ fill:var(--accent); stroke:var(--accent); }
+ 
 </style>
 </head>
 <body style="--accent:var(--cat-cardio); --accent-tint:var(--cat-cardio-tint); background:linear-gradient(180deg, var(--cat-cardio-tint) 0%, var(--bg) 420px);">
@@ -553,85 +571,135 @@ a{ color:var(--primary); text-decoration:none; }
   <div class="wrap">
     <div class="calc-list">
  
-      <a class="calc-row" href="BMI.html">
-        <div>
-          <div class="calc-row-title">BMI Calculator</div>
-          <div class="calc-row-sub">Body Mass Index from weight &amp; height</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="BMI.html">
+          <div>
+            <div class="calc-row-title">BMI Calculator</div>
+            <div class="calc-row-sub">Body Mass Index from weight &amp; height</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="BMI Calculator" data-url="cardiopage/BMI.html" data-category="Cardiac" data-color="var(--cat-cardio)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="bloodPressureCatogury.html">
-        <div>
-          <div class="calc-row-title">Blood Pressure Calculator</div>
-          <div class="calc-row-sub">Classify systolic / diastolic reading</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="bloodPressureCatogury.html">
+          <div>
+            <div class="calc-row-title">Blood Pressure Calculator</div>
+            <div class="calc-row-sub">Classify systolic / diastolic reading</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Blood Pressure Calculator" data-url="cardiopage/bloodPressureCatogury.html" data-category="Cardiac" data-color="var(--cat-cardio)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="cardicoutput.html">
-        <div>
-          <div class="calc-row-title">Cardiac Output Calculator</div>
-          <div class="calc-row-sub">From heart rate &amp; stroke volume</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="cardicoutput.html">
+          <div>
+            <div class="calc-row-title">Cardiac Output Calculator</div>
+            <div class="calc-row-sub">From heart rate &amp; stroke volume</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Cardiac Output Calculator" data-url="cardiopage/cardicoutput.html" data-category="Cardiac" data-color="var(--cat-cardio)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="meanartialpressure.html">
-        <div>
-          <div class="calc-row-title">Mean Arterial Pressure</div>
-          <div class="calc-row-sub">Average arterial pressure per cycle</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="meanartialpressure.html">
+          <div>
+            <div class="calc-row-title">Mean Arterial Pressure</div>
+            <div class="calc-row-sub">Average arterial pressure per cycle</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Mean Arterial Pressure" data-url="cardiopage/meanartialpressure.html" data-category="Cardiac" data-color="var(--cat-cardio)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="pulsepressure.html">
-        <div>
-          <div class="calc-row-title">Pulse Pressure Calculator</div>
-          <div class="calc-row-sub">Systolic minus diastolic</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="pulsepressure.html">
+          <div>
+            <div class="calc-row-title">Pulse Pressure Calculator</div>
+            <div class="calc-row-sub">Systolic minus diastolic</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Pulse Pressure Calculator" data-url="cardiopage/pulsepressure.html" data-category="Cardiac" data-color="var(--cat-cardio)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="ratepressureproduct.html">
-        <div>
-          <div class="calc-row-title">Rate Pressure Product</div>
-          <div class="calc-row-sub">Myocardial oxygen demand estimate</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="ratepressureproduct.html">
+          <div>
+            <div class="calc-row-title">Rate Pressure Product</div>
+            <div class="calc-row-sub">Myocardial oxygen demand estimate</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Rate Pressure Product" data-url="cardiopage/ratepressureproduct.html" data-category="Cardiac" data-color="var(--cat-cardio)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="stokevolume.html">
-        <div>
-          <div class="calc-row-title">Stroke Volume Calculator</div>
-          <div class="calc-row-sub">Volume ejected per heartbeat</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="stokevolume.html">
+          <div>
+            <div class="calc-row-title">Stroke Volume Calculator</div>
+            <div class="calc-row-sub">Volume ejected per heartbeat</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Stroke Volume Calculator" data-url="cardiopage/stokevolume.html" data-category="Cardiac" data-color="var(--cat-cardio)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="surfacearea.html">
-        <div>
-          <div class="calc-row-title">Body Surface Area</div>
-          <div class="calc-row-sub">Mosteller formula, for dosing &amp; cardiac index</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="surfacearea.html">
+          <div>
+            <div class="calc-row-title">Body Surface Area</div>
+            <div class="calc-row-sub">Mosteller formula, for dosing &amp; cardiac index</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Body Surface Area" data-url="cardiopage/surfacearea.html" data-category="Cardiac" data-color="var(--cat-cardio)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="TargetHeartRate.html">
-        <div>
-          <div class="calc-row-title">Target Heart Rate</div>
-          <div class="calc-row-sub">Training zone from age &amp; intensity</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="TargetHeartRate.html">
+          <div>
+            <div class="calc-row-title">Target Heart Rate</div>
+            <div class="calc-row-sub">Training zone from age &amp; intensity</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Target Heart Rate" data-url="cardiopage/TargetHeartRate.html" data-category="Cardiac" data-color="var(--cat-cardio)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="PerfectBloodDonor.html">
-        <div>
-          <div class="calc-row-title">Blood Donor Compatibility</div>
-          <div class="calc-row-sub">ABO / Rh compatible donor lookup</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="PerfectBloodDonor.html">
+          <div>
+            <div class="calc-row-title">Blood Donor Compatibility</div>
+            <div class="calc-row-sub">ABO / Rh compatible donor lookup</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Blood Donor Compatibility" data-url="cardiopage/PerfectBloodDonor.html" data-category="Cardiac" data-color="var(--cat-cardio)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
     </div>
   </div>
@@ -644,5 +712,6 @@ a{ color:var(--primary); text-decoration:none; }
   </div>
 </footer>
  
+<script src="../favorites.js"></script>
 </body>
 </html>

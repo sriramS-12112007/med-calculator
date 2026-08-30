@@ -204,6 +204,24 @@ a{ color:var(--primary); text-decoration:none; }
 .dash-nav .brand{ color:#fff; }
 .dash-nav .brand .pulse-mark path{ stroke:#7CE8BE; }
  
+/* ---- Favorite star button (added) ---- */
+.calc-row{ gap:14px; }
+.calc-row-link{
+  display:flex; align-items:center; justify-content:space-between;
+  flex:1; min-width:0; text-decoration:none; color:inherit;
+}
+.fav-btn{
+  border:1.5px solid var(--border-soft); background:#fff;
+  width:30px; height:30px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all .18s ease; padding:0; flex-shrink:0;
+}
+.fav-btn svg{ width:15px; height:15px; stroke:var(--ink-faint); fill:none; stroke-width:2; transition:all .18s ease; }
+.fav-btn:hover{ border-color:var(--accent); }
+.fav-btn:hover svg{ stroke:var(--accent); }
+.fav-btn.active{ background:var(--accent-tint); border-color:var(--accent); }
+.fav-btn.active svg{ fill:var(--accent); stroke:var(--accent); }
+ 
 </style>
 </head>
 <body style="--accent:var(--cat-kidney); --accent-tint:var(--cat-kidney-tint); background:linear-gradient(180deg, var(--cat-kidney-tint) 0%, var(--bg) 420px);">
@@ -243,85 +261,136 @@ a{ color:var(--primary); text-decoration:none; }
 <main class="calc-body">
   <div class="wrap">
     <div class="calc-list">
-      <a class="calc-row" href="BUNCreatinineRatio.html">
-        <div>
-          <div class="calc-row-title">BUN:Creatinine Ratio</div>
-          <div class="calc-row-sub">Prerenal vs intrinsic renal screening</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
  
-      <a class="calc-row" href="CorrectedSodium.html">
-        <div>
-          <div class="calc-row-title">Corrected Sodium</div>
-          <div class="calc-row-sub">Sodium adjusted for hyperglycemia</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="BUNCreatinineRatio.html">
+          <div>
+            <div class="calc-row-title">BUN:Creatinine Ratio</div>
+            <div class="calc-row-sub">Prerenal vs intrinsic renal screening</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="BUN:Creatinine Ratio" data-url="renalpage/BUNCreatinineRatio.html" data-category="Renal" data-color="var(--cat-kidney)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="CreatinineClearance.html">
-        <div>
-          <div class="calc-row-title">Creatinine Clearance</div>
-          <div class="calc-row-sub">Cockcroft-Gault estimated clearance</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="CorrectedSodium.html">
+          <div>
+            <div class="calc-row-title">Corrected Sodium</div>
+            <div class="calc-row-sub">Sodium adjusted for hyperglycemia</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Corrected Sodium" data-url="renalpage/CorrectedSodium.html" data-category="Renal" data-color="var(--cat-kidney)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="FENa.html">
-        <div>
-          <div class="calc-row-title">FENa Calculator</div>
-          <div class="calc-row-sub">Fractional excretion of sodium</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="CreatinineClearance.html">
+          <div>
+            <div class="calc-row-title">Creatinine Clearance</div>
+            <div class="calc-row-sub">Cockcroft-Gault estimated clearance</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Creatinine Clearance" data-url="renalpage/CreatinineClearance.html" data-category="Renal" data-color="var(--cat-kidney)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="FreeWaterDeficit.html">
-        <div>
-          <div class="calc-row-title">Free Water Deficit</div>
-          <div class="calc-row-sub">Water replacement estimate for hypernatremia</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="FENa.html">
+          <div>
+            <div class="calc-row-title">FENa Calculator</div>
+            <div class="calc-row-sub">Fractional excretion of sodium</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="FENa Calculator" data-url="renalpage/FENa.html" data-category="Renal" data-color="var(--cat-kidney)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="Osmolarity.html">
-        <div>
-          <div class="calc-row-title">Serum Osmolarity</div>
-          <div class="calc-row-sub">Calculated plasma osmolarity</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="FreeWaterDeficit.html">
+          <div>
+            <div class="calc-row-title">Free Water Deficit</div>
+            <div class="calc-row-sub">Water replacement estimate for hypernatremia</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Free Water Deficit" data-url="renalpage/FreeWaterDeficit.html" data-category="Renal" data-color="var(--cat-kidney)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="PotassiumDeficit.html">
-        <div>
-          <div class="calc-row-title">Potassium Deficit</div>
-          <div class="calc-row-sub">Estimated potassium replacement need</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="Osmolarity.html">
+          <div>
+            <div class="calc-row-title">Serum Osmolarity</div>
+            <div class="calc-row-sub">Calculated plasma osmolarity</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Serum Osmolarity" data-url="renalpage/Osmolarity.html" data-category="Renal" data-color="var(--cat-kidney)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="RenalFailureIndex.html">
-        <div>
-          <div class="calc-row-title">Renal Failure Index</div>
-          <div class="calc-row-sub">Urine sodium index for renal failure</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="PotassiumDeficit.html">
+          <div>
+            <div class="calc-row-title">Potassium Deficit</div>
+            <div class="calc-row-sub">Estimated potassium replacement need</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Potassium Deficit" data-url="renalpage/PotassiumDeficit.html" data-category="Renal" data-color="var(--cat-kidney)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="UrineOutput.html">
-        <div>
-          <div class="calc-row-title">Urine Output</div>
-          <div class="calc-row-sub">Weight-based urine output assessment</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="RenalFailureIndex.html">
+          <div>
+            <div class="calc-row-title">Renal Failure Index</div>
+            <div class="calc-row-sub">Urine sodium index for renal failure</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Renal Failure Index" data-url="renalpage/RenalFailureIndex.html" data-category="Renal" data-color="var(--cat-kidney)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="eGFR.html">
-        <div>
-          <div class="calc-row-title">eGFR Calculator</div>
-          <div class="calc-row-sub">Estimated glomerular filtration rate</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="UrineOutput.html">
+          <div>
+            <div class="calc-row-title">Urine Output</div>
+            <div class="calc-row-sub">Weight-based urine output assessment</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Urine Output" data-url="renalpage/UrineOutput.html" data-category="Renal" data-color="var(--cat-kidney)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
+ 
+      <div class="calc-row">
+        <a class="calc-row-link" href="eGFR.html">
+          <div>
+            <div class="calc-row-title">eGFR Calculator</div>
+            <div class="calc-row-sub">Estimated glomerular filtration rate</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="eGFR Calculator" data-url="renalpage/eGFR.html" data-category="Renal" data-color="var(--cat-kidney)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
     </div>
   </div>
@@ -334,5 +403,6 @@ a{ color:var(--primary); text-decoration:none; }
   </div>
 </footer>
  
+<script src="../favorites.js"></script>
 </body>
 </html>

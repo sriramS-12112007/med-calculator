@@ -9,47 +9,44 @@
    Smart Medical Calculator — Design System
    Modern healthcare SaaS: soft light theme, calm blue/green, rounded cards
    ========================================================================== */
- 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
  
 :root{
   /* ---- Core palette ---- */
-  --bg:            #F5F9F8;
-  --surface:       #FFFFFF;
-  --surface-alt:   #EEF5F3;
-  --border:        #DCE7E3;
-  --border-soft:   #E9F1EE;
- 
-  --ink:           #16302B;
-  --ink-soft:      #52685F;
-  --ink-faint:     #86988F;
- 
-  --primary:       #2F7A63;
-  --primary-dark:  #1F5C49;
-  --primary-tint:  #E3F2EC;
-  --primary-ring:  rgba(47,122,99,0.18);
+  --bg: #F5F9F8;
+  --surface: #FFFFFF;
+  --surface-alt: #EEF5F3;
+  --border: #DCE7E3;
+  --border-soft: #E9F1EE;
+  --ink: #16302B;
+  --ink-soft: #52685F;
+  --ink-faint: #86988F;
+  --primary: #2F7A63;
+  --primary-dark: #1F5C49;
+  --primary-tint: #E3F2EC;
+  --primary-ring: rgba(47,122,99,0.18);
  
   /* ---- Category accents (color-codes each specialty consistently) ---- */
-  --cat-cardio:    #DD6E5C;
+  --cat-cardio: #DD6E5C;
   --cat-cardio-tint: #FBEBE8;
-  --cat-blood:     #B5506E;
-  --cat-blood-tint:  #F8EAEF;
-  --cat-lungs:     #4A8FC4;
-  --cat-lungs-tint:  #E9F2FA;
-  --cat-kidney:    #C08A34;
+  --cat-blood: #B5506E;
+  --cat-blood-tint: #F8EAEF;
+  --cat-lungs: #4A8FC4;
+  --cat-lungs-tint: #E9F2FA;
+  --cat-kidney: #C08A34;
   --cat-kidney-tint: #FBF1DF;
-  --cat-neuro:     #7E67C6;
-  --cat-neuro-tint:  #EFECFA;
-  --cat-general:   #2F7A63;
+  --cat-neuro: #7E67C6;
+  --cat-neuro-tint: #EFECFA;
+  --cat-general: #2F7A63;
   --cat-general-tint: #E3F2EC;
  
-  --warn:          #B5506E;
-  --warn-tint:     #F8EAEF;
+  --warn: #B5506E;
+  --warn-tint: #F8EAEF;
  
   /* ---- Type ---- */
   --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
-  --font-body:    'Inter', system-ui, sans-serif;
-  --font-mono:    'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
  
   /* ---- Shape / elevation ---- */
   --radius-sm: 10px;
@@ -61,9 +58,7 @@
 }
  
 *, *::before, *::after{ box-sizing: border-box; }
- 
 html{ scroll-behavior: smooth; }
- 
 body{
   margin:0;
   background:var(--bg);
@@ -73,24 +68,18 @@ body{
   line-height:1.55;
   -webkit-font-smoothing:antialiased;
 }
- 
 h1,h2,h3,h4{
   font-family:var(--font-display);
   color:var(--ink);
   line-height:1.2;
   margin:0 0 12px;
 }
- 
 h1{ font-size:clamp(32px, 4vw, 46px); font-weight:800; letter-spacing:-0.02em; }
 h2{ font-size:26px; font-weight:700; letter-spacing:-0.01em; }
 h3{ font-size:19px; font-weight:700; }
- 
 p{ margin:0 0 14px; color:var(--ink-soft); }
- 
 a{ color:var(--primary); text-decoration:none; }
- 
 ::selection{ background:var(--primary-tint); color:var(--primary-dark); }
- 
 :focus-visible{
   outline:2.5px solid var(--primary);
   outline-offset:2px;
@@ -111,7 +100,7 @@ a{ color:var(--primary); text-decoration:none; }
 }
 .site-nav .wrap{
   display:flex; align-items:center; justify-content:space-between;
-  height:72px;
+  height:72px; gap:20px;
 }
 .brand{
   display:flex; align-items:center; gap:10px;
@@ -122,14 +111,66 @@ a{ color:var(--primary); text-decoration:none; }
 .brand .pulse-mark path{
   fill:none; stroke:var(--primary); stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
 }
-.nav-links{ display:flex; align-items:center; gap:30px; }
+.nav-links{ display:flex; align-items:center; gap:30px; flex:1; }
 .nav-links a{
   color:var(--ink-soft); font-weight:600; font-size:14.5px;
   padding:6px 0; border-bottom:2px solid transparent;
   transition:color .18s ease, border-color .18s ease;
+  cursor:pointer;
 }
 .nav-links a:hover{ color:var(--primary); border-color:var(--primary); }
 .nav-actions{ display:flex; align-items:center; gap:10px; }
+ 
+.user-chip{ display:flex; align-items:center; gap:9px; font-size:14px; font-weight:700; color:var(--ink); }
+.user-chip .avatar{
+  width:30px; height:30px; border-radius:50%; background:var(--primary-tint);
+  color:var(--primary-dark); display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:13px; flex-shrink:0;
+}
+ 
+/* ==========================================================================
+   FAVORITES NAV DROPDOWN
+   ========================================================================== */
+.fav-nav-wrap{ position:relative; flex-shrink:0; }
+.fav-nav-btn{
+  position:relative; display:inline-flex; align-items:center; gap:7px;
+}
+.fav-nav-btn svg{ width:16px; height:16px; stroke:var(--ink-soft); fill:none; stroke-width:2; transition:all .15s ease; }
+.fav-nav-btn.has-favs svg{ fill:var(--primary); stroke:var(--primary); }
+.fav-count-badge{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:18px; height:18px; padding:0 5px; border-radius:999px;
+  background:var(--primary); color:#fff; font-size:11px; font-weight:700;
+  font-family:var(--font-mono);
+}
+.fav-count-badge.zero{ display:none; }
+.fav-dropdown{
+  position:absolute; top:calc(100% + 10px); right:0; width:320px; max-height:60vh; overflow-y:auto;
+  background:#fff; border:1px solid var(--border-soft); border-radius:var(--radius-md);
+  box-shadow:var(--shadow-lg); padding:10px; display:none; z-index:100;
+}
+.fav-dropdown.open{ display:block; }
+.fav-dropdown-head{ display:flex; align-items:center; justify-content:space-between; padding:6px 8px 10px; }
+.fav-dropdown-head h4{ margin:0; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); font-weight:700; font-family:var(--font-mono); }
+.fav-drop-empty{ padding:30px 16px; text-align:center; color:var(--ink-faint); font-size:13.5px; line-height:1.6; }
+.fav-drop-item{
+  display:flex; align-items:center; gap:10px; padding:10px 10px; border-radius:10px;
+  text-decoration:none; color:inherit; transition:background .15s ease;
+}
+.fav-drop-item:hover{ background:var(--surface-alt); }
+.fav-drop-dot{ width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+.fav-drop-text{ flex:1; min-width:0; }
+.fav-drop-name{ display:block; font-weight:700; font-size:14px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.fav-drop-cat{ display:block; font-size:12px; color:var(--ink-faint); margin-top:1px; }
+.fav-drop-remove{
+  border:none; background:transparent; color:var(--ink-faint); font-size:17px; line-height:1; cursor:pointer;
+  width:24px; height:24px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  transition:all .15s ease;
+}
+.fav-drop-remove:hover{ background:var(--warn-tint); color:var(--warn); }
+@media (max-width:640px){
+  .fav-dropdown{ width:280px; right:-40px; }
+}
  
 /* ==========================================================================
    BUTTONS
@@ -150,7 +191,7 @@ a{ color:var(--primary); text-decoration:none; }
 .btn-sm{ padding:8px 16px; font-size:13.5px; }
  
 /* ==========================================================================
-   HERO  (signature: animated ECG pulse trace)
+   HERO (signature: animated ECG pulse trace)
    ========================================================================== */
 .hero{
   position:relative;
@@ -168,11 +209,10 @@ a{ color:var(--primary); text-decoration:none; }
   background:var(--primary-tint); padding:7px 14px; border-radius:999px;
   margin-bottom:22px;
 }
-.hero-copy{ max-width:600px; }
-.hero p.lead{ font-size:17.5px; color:var(--ink-soft); max-width:520px; margin-bottom:0; }
-.hero-copy{ margin-bottom:46px; }
-.hero-cta{ display:flex; gap:12px; margin-bottom:56px; }
- 
+.hero-copy{ max-width:640px; }
+.hero p.lead{ font-size:17.5px; color:var(--ink-soft); max-width:560px; margin-bottom:14px; }
+.hero p.intro{ font-size:15px; max-width:600px; }
+.hero-copy{ margin-bottom:16px; }
 .pulse-strip{
   width:100%; height:64px;
   display:block;
@@ -191,35 +231,31 @@ a{ color:var(--primary); text-decoration:none; }
   .pulse-strip path{ animation:none; stroke-dashoffset:0; }
 }
  
-.stat-row{ display:flex; gap:44px; flex-wrap:wrap; }
-.stat-row .stat b{
-  display:block; font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--ink);
-}
-.stat-row .stat span{ font-size:13px; color:var(--ink-faint); }
- 
 /* ==========================================================================
    CATEGORY GRID (dashboard + homepage overview)
    ========================================================================== */
 .section-head{ margin-bottom:34px; max-width:560px; }
 .section-head p{ margin:0; }
- 
 .cat-grid{
   display:grid;
   grid-template-columns:repeat(3, 1fr);
   gap:22px;
 }
-.cat-card{
+a.cat-card{
   --accent: var(--primary);
   --accent-tint: var(--primary-tint);
   position:relative;
+  display:block;
   background:var(--surface);
   border:1px solid var(--border-soft);
   border-radius:var(--radius-md);
   padding:26px 24px 24px;
   box-shadow:var(--shadow-sm);
   transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  text-decoration:none;
+  color:inherit;
 }
-.cat-card:hover{
+a.cat-card:hover{
   transform:translateY(-4px);
   box-shadow:var(--shadow-md);
   border-color:var(--accent-tint);
@@ -231,7 +267,7 @@ a{ color:var(--primary); text-decoration:none; }
   margin-bottom:16px;
 }
 .cat-icon svg{ width:22px; height:22px; stroke:var(--accent); fill:none; stroke-width:1.8; }
-.cat-card h3{ margin-bottom:6px; }
+.cat-card h3{ margin-bottom:6px; padding-right:30px; }
 .cat-card p{ font-size:14px; margin-bottom:18px; min-height:42px; }
 .cat-card .cat-count{
   font-family:var(--font-mono); font-size:12px; color:var(--accent);
@@ -243,17 +279,78 @@ a{ color:var(--primary); text-decoration:none; }
   font-weight:600; font-size:14px; color:var(--accent);
 }
 .cat-link svg{ width:14px; height:14px; stroke:var(--accent); fill:none; stroke-width:2; transition:transform .18s ease; }
-.cat-card:hover .cat-link svg{ transform:translateX(3px); }
+a.cat-card:hover .cat-link svg{ transform:translateX(3px); }
  
 .cat-card.cardio{ --accent:var(--cat-cardio); --accent-tint:var(--cat-cardio-tint); }
-.cat-card.blood{  --accent:var(--cat-blood);  --accent-tint:var(--cat-blood-tint); }
-.cat-card.lungs{  --accent:var(--cat-lungs);  --accent-tint:var(--cat-lungs-tint); }
+.cat-card.blood{ --accent:var(--cat-blood); --accent-tint:var(--cat-blood-tint); }
+.cat-card.lungs{ --accent:var(--cat-lungs); --accent-tint:var(--cat-lungs-tint); }
 .cat-card.kidney{ --accent:var(--cat-kidney); --accent-tint:var(--cat-kidney-tint); }
-.cat-card.neuro{  --accent:var(--cat-neuro);  --accent-tint:var(--cat-neuro-tint); }
+.cat-card.neuro{ --accent:var(--cat-neuro); --accent-tint:var(--cat-neuro-tint); }
 .cat-card.general{--accent:var(--cat-general);--accent-tint:var(--cat-general-tint); }
  
 @media (max-width:980px){ .cat-grid{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:620px){ .cat-grid{ grid-template-columns:1fr; } }
+ 
+/* ---- Favorite star toggle on each card ---- */
+.fav-btn{
+  position:absolute; top:16px; right:16px;
+  width:34px; height:34px; border-radius:50%;
+  border:1.5px solid var(--border-soft); background:#fff;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all .18s ease; z-index:2; padding:0;
+}
+.fav-btn svg{ width:16px; height:16px; stroke:var(--ink-faint); fill:none; stroke-width:2; transition:all .18s ease; }
+.fav-btn:hover{ border-color:var(--accent); }
+.fav-btn:hover svg{ stroke:var(--accent); }
+.fav-btn.active{ background:var(--accent-tint); border-color:var(--accent); }
+.fav-btn.active svg{ fill:var(--accent); stroke:var(--accent); }
+.fav-btn-row{ position:static; width:30px; height:30px; }
+ 
+/* ==========================================================================
+   FAVORITES POPUP (opened from nav / hero / footer)
+   ========================================================================== */
+.fav-empty{
+  background:var(--surface); border:1.5px dashed var(--border); border-radius:var(--radius-md);
+  padding:32px 24px; text-align:center; color:var(--ink-faint);
+}
+.fav-empty h3{ color:var(--ink); margin-bottom:6px; font-size:16px; }
+.fav-empty p{ margin:0; font-size:13.5px; }
+.fav-modal-list{ display:flex; flex-direction:column; gap:10px; max-height:56vh; overflow-y:auto; margin-top:4px; }
+.fav-item{
+  display:flex; align-items:center; gap:12px; padding:12px 14px;
+  border:1px solid var(--border-soft); border-radius:var(--radius-sm);
+  text-decoration:none; color:inherit; transition:border-color .15s ease, transform .15s ease;
+}
+.fav-item:hover{ border-color:var(--primary-tint); transform:translateX(2px); }
+.fav-item-dot{ width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.fav-item-name{ font-weight:700; font-size:14.5px; color:var(--ink); }
+.fav-item-cat{ font-size:12px; color:var(--ink-faint); margin-top:1px; }
+.fav-item-go{ width:14px; height:14px; stroke:var(--ink-faint); fill:none; stroke-width:2; margin-left:auto; flex-shrink:0; }
+ 
+/* ==========================================================================
+   AUTH MODAL
+   ========================================================================== */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(22,48,43,0.45);
+  display:none; align-items:center; justify-content:center; z-index:200; padding:20px;
+}
+.modal-overlay.open{ display:flex; }
+.modal-card{
+  background:#fff; border-radius:var(--radius-lg); padding:32px;
+  width:100%; max-width:380px; box-shadow:var(--shadow-lg); position:relative;
+}
+.modal-close{
+  position:absolute; top:16px; right:16px; width:30px; height:30px; border-radius:50%;
+  border:none; background:var(--surface-alt); cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.modal-close svg{ width:14px; height:14px; stroke:var(--ink-faint); fill:none; stroke-width:2.2; }
+.modal-tabs{ display:flex; gap:6px; background:var(--surface-alt); padding:4px; border-radius:999px; margin-bottom:22px; }
+.modal-tab{ flex:1; text-align:center; padding:9px; border-radius:999px; font-weight:700; font-size:13.5px; cursor:pointer; color:var(--ink-soft); transition:all .15s ease; }
+.modal-tab.active{ background:#fff; color:var(--primary-dark); box-shadow:var(--shadow-sm); }
+.modal-error{ font-size:13px; color:var(--warn); background:var(--warn-tint); padding:10px 12px; border-radius:8px; margin-bottom:14px; display:none; }
+.modal-error.show{ display:block; }
+.modal-title{ font-size:19px; margin-bottom:4px; }
+.modal-sub{ font-size:13.5px; margin-bottom:20px; }
  
 /* ==========================================================================
    CALCULATOR LIST PAGES (per-category index)
@@ -292,19 +389,16 @@ a{ color:var(--primary); text-decoration:none; }
 }
 .calc-hero h1{ font-size:30px; margin-bottom:8px; }
 .calc-hero p{ max-width:640px; margin:0; }
- 
 .calc-body{ padding:44px 0 80px; }
 .calc-layout{
   display:grid; grid-template-columns:1.15fr 0.85fr; gap:26px; align-items:start;
 }
 @media (max-width:900px){ .calc-layout{ grid-template-columns:1fr; } }
- 
 .panel{
   background:var(--surface); border:1px solid var(--border-soft);
   border-radius:var(--radius-md); padding:30px; box-shadow:var(--shadow-sm);
 }
 .panel h2{ font-size:17px; margin-bottom:20px; }
- 
 .field{ margin-bottom:18px; }
 .field label{
   display:block; font-size:13px; font-weight:600; color:var(--ink-soft);
@@ -391,7 +485,6 @@ a{ color:var(--primary); text-decoration:none; }
 .dash-nav .nav-links a:hover{ color:#fff; }
 .dash-nav .brand{ color:#fff; }
 .dash-nav .brand .pulse-mark path{ stroke:#7CE8BE; }
- 
 </style>
 </head>
 <body>
@@ -405,85 +498,108 @@ a{ color:var(--primary); text-decoration:none; }
     </a>
     <div class="nav-links">
       <a href="homepage.html">Home</a>
+      <a href="#categories">Calculators</a>
+    </div>
+ 
+    <!-- FAVORITES DROPDOWN -->
+    <div class="fav-nav-wrap">
+      <button type="button" class="btn btn-ghost btn-sm fav-nav-btn" id="favNavBtn" onclick="toggleFavDropdown(event)" aria-haspopup="true" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        Favorites
+        <span class="fav-count-badge zero" id="favCountBadge">0</span>
+      </button>
+      <div class="fav-dropdown" id="favDropdown">
+        <div class="fav-dropdown-head"><h4>Your favorites</h4></div>
+        <div id="favDropdownList"></div>
+      </div>
+    </div>
+ 
+    <div class="nav-actions" id="navAuthArea">
+      <button class="btn btn-ghost btn-sm" onclick="openAuth('login')">Log in</button>
+      <button class="btn btn-primary btn-sm" onclick="openAuth('signup')">Sign up</button>
     </div>
   </div>
 </nav>
  
-<!-- HERO -->
+<!-- HERO / INTRODUCTION -->
 <header class="hero">
   <div class="wrap">
     <div class="hero-copy">
+      <span class="eyebrow">About this calculator</span>
       <h1>Clinical math, done in seconds.</h1>
       <p class="lead">
-        Anion gap to eGFR to Glasgow Coma Scale — one consistent set of calculators
-        for cardiology, respiratory, hematology, renal, neurology, and general health,
-        built for the pace of a ward round.
+        Smart Medical Calculator is a free set of bedside formulas for cardiology, respiratory,
+        hematology, renal, neurology, and general health — built so students and healthcare
+        professionals can go from patient values to a clinical number without reaching for a
+        textbook or a spreadsheet.
       </p>
-    </div>
- 
-    <div class="stat-row">
-      <div class="stat"><b>60</b><span>Formulas</span></div>
-      <div class="stat"><b>6</b><span>Specialties</span></div>
-      <div class="stat"><b>0s</b><span>Setup — just open &amp; calculate</span></div>
+      <p class="intro">
+        Pick a specialty below to open its dashboard, or star the ones you use most and pull them
+        up instantly from your Favorites dropdown up top — no digging through menus mid-shift.
+        Every result comes with the formula it's based on, so you can check the working, not just
+        the number.
+      </p>
     </div>
   </div>
 </header>
  
 <!-- CATEGORY OVERVIEW -->
-<section class="wrap" style="padding:64px 32px 20px;">
+<section class="wrap" id="categories" style="padding:64px 32px 20px;">
   <div class="section-head">
     <h2>Every specialty, one toolkit</h2>
-    <p>Each category groups ten focused calculators, color-coded so you always know where you are.</p>
+    <p>Each category groups ten focused calculators, color-coded so you always know where you are. Tap a card to open it, or open any specialty and tap the star on a calculator to save it to Favorites.</p>
   </div>
  
   <div class="cat-grid">
-    <div class="cat-card cardio">
+ 
+    <a href="cardiopage/cardiodashboard.html" class="cat-card cardio">
       <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-10-9.3C.4 8 2 4 6 4c2.2 0 3.7 1.2 6 3.5C14.3 5.2 15.8 4 18 4c4 0 5.6 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></div>
       <span class="cat-count">10 calculators</span>
       <h3>Cardiac</h3>
       <p>Cardiac output, MAP, pulse pressure, target heart rate and more.</p>
-      <a class="cat-link" href="cardiopage/cardiodashboard.html">Open cardiac tools <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
+      <span class="cat-link">Open cardiac tools <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
  
-    <div class="cat-card lungs">
+    <a href="lungspage/lungsdashboard.html" class="cat-card lungs">
       <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M9 3v6l-3 2c-2 1.4-3 3.3-3 6.5C3 20 4.3 21 6 21c2 0 3-1.6 3-4v-3M15 3v6l3 2c2 1.4 3 3.3 3 6.5 0 2.5-1.3 3.5-3 3.5-2 0-3-1.6-3-4v-3"/></svg></div>
       <span class="cat-count">10 calculators</span>
       <h3>Respiratory</h3>
       <p>Tidal volume, minute ventilation, PiO₂, alveolar gas equation and more.</p>
-      <a class="cat-link" href="lungspage/lungsdashboard.html">Open respiratory tools <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
+      <span class="cat-link">Open respiratory tools <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
  
-    <div class="cat-card blood">
+    <a href="bloodpage/blooddashboard.html" class="cat-card blood">
       <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M12 2s7 8.2 7 13a7 7 0 0 1-14 0c0-4.8 7-13 7-13z"/></svg></div>
       <span class="cat-count">10 calculators</span>
       <h3>Blood &amp; Hematology</h3>
       <p>Anion gap, MCV, MCH, hematocrit, transfusion volume and more.</p>
-      <a class="cat-link" href="bloodpage/blooddashboard.html">Open hematology tools <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
+      <span class="cat-link">Open hematology tools <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
  
-    <div class="cat-card kidney">
+    <a href="renalpage/renaldashboard.html" class="cat-card kidney">
       <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M8 3c-2.8 0-4.5 2.4-4.5 6.5S6 21 9 21c1.8 0 2-1.6 1.6-3.4-.5-2.2-1.6-3-.6-4.6C11 11.4 13 11.4 13 8.6 13 5.4 10.8 3 8 3z"/></svg></div>
       <span class="cat-count">10 calculators</span>
       <h3>Renal</h3>
       <p>eGFR, creatinine clearance, FENa, free water deficit and more.</p>
-      <a class="cat-link" href="renalpage/renaldashboard.html">Open renal tools <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
+      <span class="cat-link">Open renal tools <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
  
-    <div class="cat-card neuro">
+    <a href="brainpage/braindashboard.html" class="cat-card neuro">
       <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M9 3a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3.5 3.5 0 0 0 2 6 3 3 0 0 0 3 3h1V3H9zM15 3a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3.5 3.5 0 0 1-2 6 3 3 0 0 1-3 3h-1V3h1z"/></svg></div>
       <span class="cat-count">10 calculators</span>
       <h3>Neurology</h3>
       <p>Glasgow Coma Scale, cerebral perfusion pressure, ICP and more.</p>
-      <a class="cat-link" href="brainpage/braindashboard.html">Open neurology tools <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
+      <span class="cat-link">Open neurology tools <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
  
-    <div class="cat-card general">
+    <a href="gendralpage/gendraldashboard.html" class="cat-card general">
       <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9-6-18-3 9H2"/></svg></div>
       <span class="cat-count">10 calculators</span>
       <h3>General Health</h3>
       <p>BMR, ideal body weight, calorie needs, drug dosage and more.</p>
-      <a class="cat-link" href="gendralpage/gendraldashboard.html">Open general tools <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
+      <span class="cat-link">Open general tools <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+ 
   </div>
 </section>
  
@@ -501,6 +617,7 @@ a{ color:var(--primary); text-decoration:none; }
         <h4>Product</h4>
         <a href="homepage.html">Home</a>
         <a href="cardiopage/cardiodashboard.html">Calculators</a>
+        <a href="#" onclick="openFavModal(event)">Favorites</a>
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
@@ -515,6 +632,289 @@ a{ color:var(--primary); text-decoration:none; }
     </div>
   </div>
 </footer>
+ 
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authOverlay">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeAuth()" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+ 
+    <div class="modal-tabs">
+      <div class="modal-tab active" id="tabLoginBtn" onclick="switchTab('login')">Log in</div>
+      <div class="modal-tab" id="tabSignupBtn" onclick="switchTab('signup')">Sign up</div>
+    </div>
+ 
+    <div class="modal-error" id="authError"></div>
+ 
+    <form id="formLogin" onsubmit="handleLogin(event)">
+      <div class="field"><label>Email</label><input type="email" id="liEmail" placeholder="you@example.com" required></div>
+      <div class="field"><label>Password</label><input type="password" id="liPass" placeholder="••••••••" required></div>
+      <button type="submit" class="btn btn-primary btn-block">Log in</button>
+    </form>
+ 
+    <form id="formSignup" onsubmit="handleSignup(event)" style="display:none;">
+      <div class="field"><label>Name</label><input type="text" id="suName" placeholder="Your name" required></div>
+      <div class="field"><label>Email</label><input type="email" id="suEmail" placeholder="you@example.com" required></div>
+      <div class="field"><label>Password</label><input type="password" id="suPass" placeholder="Create a password (min 6 chars)" required minlength="6"></div>
+      <button type="submit" class="btn btn-primary btn-block">Create account</button>
+    </form>
+ 
+    <p style="font-size:12.5px; color:var(--ink-faint); margin:16px 0 0; text-align:center;">
+      Demo authentication — your account is stored only in this browser, not on a real server.
+    </p>
+  </div>
+</div>
+ 
+<!-- FAVORITES POPUP -->
+<div class="modal-overlay" id="favOverlay">
+  <div class="modal-card" style="max-width:440px;">
+    <button class="modal-close" onclick="closeFavModal()" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <h3 class="modal-title">Your favorite calculators</h3>
+    <p class="modal-sub">Tick the star on any calculator inside a specialty to pin it here.</p>
+    <div id="favModalContent"></div>
+  </div>
+</div>
+ 
+<script src="favorites.js"></script>
+<script>
+/* ==========================================================================
+   AUTH — demo login/signup, stored in this browser only (localStorage)
+   ========================================================================== */
+const SMC_USERS_KEY = 'smc_users';
+const SMC_SESSION_KEY = 'smc_current_user';
+ 
+function smcGetUsers(){
+  try { return JSON.parse(localStorage.getItem(SMC_USERS_KEY)) || []; }
+  catch(e){ return []; }
+}
+function smcSaveUsers(users){
+  localStorage.setItem(SMC_USERS_KEY, JSON.stringify(users));
+}
+function smcGetSession(){
+  try { return JSON.parse(localStorage.getItem(SMC_SESSION_KEY)) || null; }
+  catch(e){ return null; }
+}
+function smcSetSession(user){
+  if(user){ localStorage.setItem(SMC_SESSION_KEY, JSON.stringify(user)); }
+  else{ localStorage.removeItem(SMC_SESSION_KEY); }
+  renderAuthArea();
+}
+function smcInitials(name){
+  return (name || '?').trim().split(/\s+/).slice(0,2).map(w => w[0].toUpperCase()).join('');
+}
+ 
+function renderAuthArea(){
+  const area = document.getElementById('navAuthArea');
+  if(!area) return;
+  const user = smcGetSession();
+  if(user){
+    area.innerHTML = `
+      <div class="user-chip">
+        <div class="avatar">${smcInitials(user.name)}</div>
+        <span>${user.name}</span>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="handleLogout()">Log out</button>
+    `;
+  } else {
+    area.innerHTML = `
+      <button class="btn btn-ghost btn-sm" onclick="openAuth('login')">Log in</button>
+      <button class="btn btn-primary btn-sm" onclick="openAuth('signup')">Sign up</button>
+    `;
+  }
+}
+ 
+function showAuthError(msg){
+  const el = document.getElementById('authError');
+  el.textContent = msg;
+  el.classList.add('show');
+}
+function clearAuthError(){
+  const el = document.getElementById('authError');
+  el.textContent = '';
+  el.classList.remove('show');
+}
+ 
+function openAuth(mode){
+  clearAuthError();
+  document.getElementById('authOverlay').classList.add('open');
+  switchTab(mode || 'login');
+}
+function closeAuth(){
+  document.getElementById('authOverlay').classList.remove('open');
+  clearAuthError();
+  document.getElementById('formLogin').reset();
+  document.getElementById('formSignup').reset();
+}
+function switchTab(tab){
+  clearAuthError();
+  const isLogin = tab === 'login';
+  document.getElementById('tabLoginBtn').classList.toggle('active', isLogin);
+  document.getElementById('tabSignupBtn').classList.toggle('active', !isLogin);
+  document.getElementById('formLogin').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('formSignup').style.display = isLogin ? 'none' : 'block';
+}
+ 
+function handleLogin(event){
+  event.preventDefault();
+  clearAuthError();
+  const email = document.getElementById('liEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('liPass').value;
+  const users = smcGetUsers();
+  const match = users.find(u => u.email === email && u.password === pass);
+  if(!match){
+    showAuthError('No account matches that email and password.');
+    return;
+  }
+  smcSetSession({ name: match.name, email: match.email });
+  closeAuth();
+}
+ 
+function handleSignup(event){
+  event.preventDefault();
+  clearAuthError();
+  const name = document.getElementById('suName').value.trim();
+  const email = document.getElementById('suEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('suPass').value;
+ 
+  if(pass.length < 6){
+    showAuthError('Password must be at least 6 characters.');
+    return;
+  }
+  const users = smcGetUsers();
+  if(users.some(u => u.email === email)){
+    showAuthError('An account with that email already exists — try logging in instead.');
+    return;
+  }
+  users.push({ name, email, password: pass });
+  smcSaveUsers(users);
+  smcSetSession({ name, email });
+  closeAuth();
+}
+ 
+function handleLogout(){
+  smcSetSession(null);
+}
+ 
+/* ==========================================================================
+   FAVORITES — simple localStorage-backed list
+   ========================================================================== */
+const SMC_FAV_KEY = 'smc_favorites';
+ 
+function smcGetFavorites(){
+  try { return JSON.parse(localStorage.getItem(SMC_FAV_KEY)) || []; }
+  catch(e){ return []; }
+}
+function smcSaveFavorites(favs){
+  localStorage.setItem(SMC_FAV_KEY, JSON.stringify(favs));
+}
+function smcRemoveFavoriteByUrl(url){
+  const favs = smcGetFavorites().filter(f => f.url !== url);
+  smcSaveFavorites(favs);
+  renderFavDropdown();
+  if(document.getElementById('favOverlay').classList.contains('open')){
+    renderFavModal();
+  }
+}
+ 
+function openFavModal(event){
+  if(event) event.preventDefault();
+  renderFavModal();
+  document.getElementById('favOverlay').classList.add('open');
+}
+function closeFavModal(){
+  document.getElementById('favOverlay').classList.remove('open');
+}
+function renderFavModal(){
+  const favs = smcGetFavorites();
+  const content = document.getElementById('favModalContent');
+  if(!favs.length){
+    content.innerHTML = `
+      <div class="fav-empty">
+        <h3>No favorites yet</h3>
+        <p>Star a calculator from inside any specialty to see it here.</p>
+      </div>`;
+    return;
+  }
+  content.innerHTML = `<div class="fav-modal-list">${favs.map(f => `
+    <a href="${f.url}" class="fav-item">
+      <span class="fav-item-dot" style="background:${f.color || 'var(--primary)'}"></span>
+      <span>
+        <span class="fav-item-name">${f.name}</span>
+        <div class="fav-item-cat">${f.category || ''}</div>
+      </span>
+      <svg class="fav-item-go" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>`).join('')}</div>`;
+}
+ 
+/* ---- Nav dropdown: quick-access view of the same favorites list ---- */
+function toggleFavDropdown(e){
+  if(e) e.stopPropagation();
+  const dd = document.getElementById('favDropdown');
+  const btn = document.getElementById('favNavBtn');
+  const isOpen = dd.classList.contains('open');
+  if(isOpen){
+    dd.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  } else {
+    renderFavDropdown();
+    dd.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+}
+function closeFavDropdown(){
+  const dd = document.getElementById('favDropdown');
+  const btn = document.getElementById('favNavBtn');
+  if(dd) dd.classList.remove('open');
+  if(btn) btn.setAttribute('aria-expanded', 'false');
+}
+function renderFavDropdown(){
+  const favs = smcGetFavorites();
+  const list = document.getElementById('favDropdownList');
+  const badge = document.getElementById('favCountBadge');
+  const btn = document.getElementById('favNavBtn');
+  if(!list || !badge || !btn) return;
+ 
+  badge.textContent = favs.length;
+  badge.classList.toggle('zero', favs.length === 0);
+  btn.classList.toggle('has-favs', favs.length > 0);
+ 
+  if(!favs.length){
+    list.innerHTML = `<div class="fav-drop-empty">No favorites yet.<br>Star a calculator on any dashboard to see it here.</div>`;
+    return;
+  }
+ 
+  list.innerHTML = favs.map(f => `
+    <a href="${f.url}" class="fav-drop-item">
+      <span class="fav-drop-dot" style="background:${f.color || 'var(--primary)'}"></span>
+      <span class="fav-drop-text">
+        <span class="fav-drop-name">${f.name}</span>
+        <span class="fav-drop-cat">${f.category || ''}</span>
+      </span>
+      <button type="button" class="fav-drop-remove" onclick="event.preventDefault(); event.stopPropagation(); smcRemoveFavoriteByUrl('${f.url}');" aria-label="Remove ${f.name} from favorites">&times;</button>
+    </a>`).join('');
+}
+ 
+/* Close dropdown on outside click / Escape */
+document.addEventListener('click', function(e){
+  const wrap = document.querySelector('.fav-nav-wrap');
+  if(wrap && !wrap.contains(e.target)){
+    closeFavDropdown();
+  }
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeFavDropdown();
+});
+ 
+/* Close modals on overlay click, and init nav areas on load */
+document.addEventListener('click', function(e){
+  if(e.target.classList && e.target.classList.contains('modal-overlay')){
+    e.target.classList.remove('open');
+  }
+});
+document.addEventListener('DOMContentLoaded', function(){
+  renderAuthArea();
+  renderFavDropdown();
+});
+</script>
  
 </body>
 </html>

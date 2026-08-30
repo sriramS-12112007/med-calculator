@@ -204,6 +204,24 @@ a{ color:var(--primary); text-decoration:none; }
 .dash-nav .brand{ color:#fff; }
 .dash-nav .brand .pulse-mark path{ stroke:#7CE8BE; }
  
+/* ---- Favorite star button (added) ---- */
+.calc-row{ gap:14px; }
+.calc-row-link{
+  display:flex; align-items:center; justify-content:space-between;
+  flex:1; min-width:0; text-decoration:none; color:inherit;
+}
+.fav-btn{
+  border:1.5px solid var(--border-soft); background:#fff;
+  width:30px; height:30px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all .18s ease; padding:0; flex-shrink:0;
+}
+.fav-btn svg{ width:15px; height:15px; stroke:var(--ink-faint); fill:none; stroke-width:2; transition:all .18s ease; }
+.fav-btn:hover{ border-color:var(--accent); }
+.fav-btn:hover svg{ stroke:var(--accent); }
+.fav-btn.active{ background:var(--accent-tint); border-color:var(--accent); }
+.fav-btn.active svg{ fill:var(--accent); stroke:var(--accent); }
+ 
 </style>
 </head>
 <body style="--accent:var(--cat-general); --accent-tint:var(--cat-general-tint); background:linear-gradient(180deg, var(--cat-general-tint) 0%, var(--bg) 420px);">
@@ -243,85 +261,136 @@ a{ color:var(--primary); text-decoration:none; }
 <main class="calc-body">
   <div class="wrap">
     <div class="calc-list">
-      <a class="calc-row" href="BMR.html">
-        <div>
-          <div class="calc-row-title">Age Calculator</div>
-          <div class="calc-row-sub">Exact age from date of birth</div>
-        </div>
+ 
+      <div class="calc-row">
+        <a class="calc-row-link" href="BMR.html">
+          <div>
+            <div class="calc-row-title">Age Calculator</div>
+            <div class="calc-row-sub">Exact age from date of birth</div>
+          </div>
           <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+        </a>
+        <button type="button" class="fav-btn" data-name="Age Calculator" data-url="gendralpage/BMR.html" data-category="General Health" data-color="var(--cat-general)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="BodyFatPercent.html">
-        <div>
-          <div class="calc-row-title">BMR Calculator</div>
-          <div class="calc-row-sub">Basal metabolic rate</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
- 
-      <a class="calc-row" href="CalorieRequirement.html">
-        <div>
-          <div class="calc-row-title">Body Fat % Calculator</div>
-          <div class="calc-row-sub">Estimated body fat percentage</div>
-        </div>
+      <div class="calc-row">
+        <a class="calc-row-link" href="BodyFatPercent.html">
+          <div>
+            <div class="calc-row-title">BMR Calculator</div>
+            <div class="calc-row-sub">Basal metabolic rate</div>
+          </div>
           <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+        </a>
+        <button type="button" class="fav-btn" data-name="BMR Calculator" data-url="gendralpage/BodyFatPercent.html" data-category="General Health" data-color="var(--cat-general)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="DailyFluidNeed.html">
-        <div>
-          <div class="calc-row-title">Calorie Requirement</div>
-          <div class="calc-row-sub">Daily calorie needs by activity level</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
- 
-      <a class="calc-row" href="DailyFluidNeed.html">
-        <div>
-          <div class="calc-row-title">Daily Fluid Need</div>
-          <div class="calc-row-sub">Recommended daily fluid intake</div>
-        </div>
+      <div class="calc-row">
+        <a class="calc-row-link" href="CalorieRequirement.html">
+          <div>
+            <div class="calc-row-title">Body Fat % Calculator</div>
+            <div class="calc-row-sub">Estimated body fat percentage</div>
+          </div>
           <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+        </a>
+        <button type="button" class="fav-btn" data-name="Body Fat % Calculator" data-url="gendralpage/CalorieRequirement.html" data-category="General Health" data-color="var(--cat-general)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="DrugDosageCalculator.html">
-        <div>
-          <div class="calc-row-title">Drug Dosage Calculator</div>
-          <div class="calc-row-sub">Weight-based dosage estimate</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
- 
-      <a class="calc-row" href="IdealBodyWeight.html">
-        <div>
-          <div class="calc-row-title">Ideal Body Weight</div>
-          <div class="calc-row-sub">Estimated ideal body weight</div>
-        </div>
+      <div class="calc-row">
+        <a class="calc-row-link" href="DailyFluidNeed.html">
+          <div>
+            <div class="calc-row-title">Calorie Requirement</div>
+            <div class="calc-row-sub">Daily calorie needs by activity level</div>
+          </div>
           <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+        </a>
+        <button type="button" class="fav-btn" data-name="Calorie Requirement" data-url="gendralpage/DailyFluidNeed.html" data-category="General Health" data-color="var(--cat-general)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="PregnancyDueDate.html">
-        <div>
-          <div class="calc-row-title">Pregnancy Due Date</div>
-          <div class="calc-row-sub">Estimated due date from LMP</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
- 
-      <a class="calc-row" href="SmokingPackYears.html">
-        <div>
-          <div class="calc-row-title">Smoking Pack-Years</div>
-          <div class="calc-row-sub">Cumulative smoking exposure</div>
-        </div>
+      <div class="calc-row">
+        <a class="calc-row-link" href="DailyFluidNeed.html">
+          <div>
+            <div class="calc-row-title">Daily Fluid Need</div>
+            <div class="calc-row-sub">Recommended daily fluid intake</div>
+          </div>
           <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+        </a>
+        <button type="button" class="fav-btn" data-name="Daily Fluid Need" data-url="gendralpage/DailyFluidNeed.html" data-category="General Health" data-color="var(--cat-general)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
-      <a class="calc-row" href="WaistHipRatio.html">
-        <div>
-          <div class="calc-row-title">Waist-Hip Ratio</div>
-          <div class="calc-row-sub">Central obesity risk indicator</div>
-        </div>
-        <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      </a>
+      <div class="calc-row">
+        <a class="calc-row-link" href="DrugDosageCalculator.html">
+          <div>
+            <div class="calc-row-title">Drug Dosage Calculator</div>
+            <div class="calc-row-sub">Weight-based dosage estimate</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Drug Dosage Calculator" data-url="gendralpage/DrugDosageCalculator.html" data-category="General Health" data-color="var(--cat-general)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
+ 
+      <div class="calc-row">
+        <a class="calc-row-link" href="IdealBodyWeight.html">
+          <div>
+            <div class="calc-row-title">Ideal Body Weight</div>
+            <div class="calc-row-sub">Estimated ideal body weight</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Ideal Body Weight" data-url="gendralpage/IdealBodyWeight.html" data-category="General Health" data-color="var(--cat-general)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
+ 
+      <div class="calc-row">
+        <a class="calc-row-link" href="PregnancyDueDate.html">
+          <div>
+            <div class="calc-row-title">Pregnancy Due Date</div>
+            <div class="calc-row-sub">Estimated due date from LMP</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Pregnancy Due Date" data-url="gendralpage/PregnancyDueDate.html" data-category="General Health" data-color="var(--cat-general)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
+ 
+      <div class="calc-row">
+        <a class="calc-row-link" href="SmokingPackYears.html">
+          <div>
+            <div class="calc-row-title">Smoking Pack-Years</div>
+            <div class="calc-row-sub">Cumulative smoking exposure</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Smoking Pack-Years" data-url="gendralpage/SmokingPackYears.html" data-category="General Health" data-color="var(--cat-general)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
+ 
+      <div class="calc-row">
+        <a class="calc-row-link" href="WaistHipRatio.html">
+          <div>
+            <div class="calc-row-title">Waist-Hip Ratio</div>
+            <div class="calc-row-sub">Central obesity risk indicator</div>
+          </div>
+          <div class="calc-row-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <button type="button" class="fav-btn" data-name="Waist-Hip Ratio" data-url="gendralpage/WaistHipRatio.html" data-category="General Health" data-color="var(--cat-general)" aria-label="Add to favorites">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        </button>
+      </div>
  
     </div>
   </div>
@@ -334,5 +403,6 @@ a{ color:var(--primary); text-decoration:none; }
   </div>
 </footer>
  
+<script src="../favorites.js"></script>
 </body>
 </html>
