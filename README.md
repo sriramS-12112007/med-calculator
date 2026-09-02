@@ -120,12 +120,12 @@ Calculator  Dashboards
 
 The six category dashboards (Cardiac, Respiratory, Blood & Hematology, Renal, General Health, Neurology) each list their respective calculators.
 
-<p align="center"> <img src="assets/screenshots/cardiodashboard.png" width="850" alt="Cardiac dashboard screenshot"> </p>
-<p align="center"> <img src="assets/screenshots/cardiodashboard.png" width="850" alt="Neurology dashboard screenshot"> </p>
-<p align="center"> <img src="assets/screenshots/cardiodashboard.png" width="850" alt="Renal dashboard screenshot"> </p>
-<p align="center"> <img src="assets/screenshots/cardiodashboard.png" width="850" alt="Respiration dashboard screenshot"> </p>
-<p align="center"> <img src="assets/screenshots/cardiodashboard.png" width="850" alt="Gendral dashboard screenshot"> </p>
-<p align="center"> <img src="assets/screenshots/cardiodashboard.png" width="850" alt="Blood dashboard screenshot"> </p>
+<p align="center"> <img src="screen-short/cardicdashboard.png" width="850" alt="Cardiac dashboard screenshot"> </p>
+<p align="center"> <img src="screen-short/nerurodashbord.png" width="850" alt="Neurology dashboard screenshot"> </p>
+<p align="center"> <img src="screen-short/Renaldashboard.png" width="850" alt="Renal dashboard screenshot"> </p>
+<p align="center"> <img src="screen-short/Respiratorydashboard.png" width="850" alt="Respiration dashboard screenshot"> </p>
+<p align="center"> <img src="screen-short/gendraldashboard.png" width="850" alt="Gendral dashboard screenshot"> </p>
+<p align="center"> <img src="screen-short/blooddashboard.png" width="850" alt="Blood dashboard screenshot"> </p>
 
 Calculator Pages
 <p align="center"> <img src="assets/screenshots/calculator-example-1.png" width="850" alt="Calculator page example 1"> <img src="assets/screenshots/calculator-example-2.png" width="850" alt="Calculator page example 2"> <img src="assets/screenshots/calculator-example-3.png" width="850" alt="Calculator page example 3"> </p>
