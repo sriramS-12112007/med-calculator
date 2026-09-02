@@ -117,7 +117,7 @@ Homepage
 <p align="center"> <img src="assets/screenshots/homepage.png" width="850" alt="Homepage screenshot"> </p>
 
 Calculator  Dashboards
-<p align="center"> <img src="screen-shots/Calculatordashboardscreenshort.png.png" width="850" alt="calculator dashboard screenshot"> </p>
+<p align="center"> <img src="screen-short/Calculatordashboardscreenshort.png" width="850" alt="calculator dashboard screenshot"> </p>
 
 
 The six category dashboards (Cardiac, Respiratory, Blood & Hematology, Renal, General Health, Neurology) each list their respective calculators.
@@ -142,9 +142,9 @@ The six category dashboards (Cardiac, Respiratory, Blood & Hematology, Renal, Ge
 Calculator Pages
 
 <p align="center"> 
-<img src="screen-short/calpage1.png" width="800" alt="Calculator page example 1"> 
-<img src="screen-short/calpage2.png" width="850" alt="Calculator page example 2"> 
-<img src="screen-short/calpage1.png" width="850" alt="Calculator page example 3"> 
+<img src="screen-short/calpage1.png" width="270px" height="310px" alt="Calculator page example 1"> 
+<img src="screen-short/calpage2.png" width="270px" height="310px"alt="Calculator page example 2"> 
+<img src="screen-short/calpage1.png" width="270px" height="310px"alt="Calculator page example 3"> 
 </p>
 
 Result Cards
