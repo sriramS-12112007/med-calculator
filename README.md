@@ -113,26 +113,19 @@ Danger / High-Risk	Red result card
 Green indicates that the calculated result is within the defined normal range, while red indicates that the result falls within a defined danger or high-risk range.
 
 Screenshots
-Homepage
-<p align="center"> <img src="assets/screenshots/homepage.png" width="850" alt="Homepage screenshot"> </p>
-Calculator  Dashboards
-<p align="center"> <img src="assets/screenshots/cardiodashboard.png" width="850" alt="calculator dashboard screenshot"> </p>
 
-The six category dashboards (Cardiac, Respiratory, Blood & Hematology, Renal, General Health, Neurology) each list their respective calculators.
+The project includes category dashboards for each clinical specialty, and these screenshots match the files currently stored in the repository.
 
-<p align="center"> <img src="screen-short/cardicdashboard.png" width="850" alt="Cardiac dashboard screenshot"> </p>
-<p align="center"> <img src="screen-short/nerurodashbord.png" width="850" alt="Neurology dashboard screenshot"> </p>
-<p align="center"> <img src="screen-short/Renaldashboard.png" width="850" alt="Renal dashboard screenshot"> </p>
-<p align="center"> <img src="screen-short/Respiratorydashboard.png" width="850" alt="Respiration dashboard screenshot"> </p>
-<p align="center"> <img src="screen-short/gendraldashboard.png" width="850" alt="Gendral dashboard screenshot"> </p>
-<p align="center"> <img src="screen-short/blooddashboard.png" width="850" alt="Blood dashboard screenshot"> </p>
-
-Calculator Pages
-<p align="center"> <img src="assets/screenshots/calculator-example-1.png" width="850" alt="Calculator page example 1"> <img src="assets/screenshots/calculator-example-2.png" width="850" alt="Calculator page example 2"> <img src="assets/screenshots/calculator-example-3.png" width="850" alt="Calculator page example 3"> </p>
-Result Cards
-<p align="center"> <img src="assets/screenshots/result-green.png" width="420" alt="Green (normal) result card"> <img src="assets/screenshots/result-red.png" width="420" alt="Red (danger) result card"> </p>
-
-Green cards indicate normal/healthy results; red cards indicate danger or high-risk results.
+<p align="center">
+  <img src="screen-short/cardicdashboard.png" width="32%" alt="Cardiac dashboard screenshot">
+  <img src="screen-short/Respiratorydashboard.png" width="32%" alt="Respiratory dashboard screenshot">
+  <img src="screen-short/blooddashboard.png" width="32%" alt="Blood dashboard screenshot">
+</p>
+<p align="center">
+  <img src="screen-short/Renaldashboard.png" width="32%" alt="Renal dashboard screenshot">
+  <img src="screen-short/gendraldashboard.png" width="32%" alt="General health dashboard screenshot">
+  <img src="screen-short/nerurodashbord.png" width="32%" alt="Neurology dashboard screenshot">
+</p>
 
 Tech Stack
 
