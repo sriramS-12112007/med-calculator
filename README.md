@@ -142,7 +142,7 @@ The six category dashboards (Cardiac, Respiratory, Blood & Hematology, Renal, Ge
 Calculator Pages
 
 <p align="center"> 
-<img src="screen-short/calpage1.png" width="850" alt="Calculator page example 1"> 
+<img src="screen-short/calpage1.png" width="800" alt="Calculator page example 1"> 
 <img src="screen-short/calpage2.png" width="850" alt="Calculator page example 2"> 
 <img src="screen-short/calpage1.png" width="850" alt="Calculator page example 3"> 
 </p>
