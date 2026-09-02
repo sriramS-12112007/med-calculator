@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Feedback &middot; Smart Medical Calculator</title>
+<style>
+/* ==========================================================================
+   Smart Medical Calculator — Design System
+   Modern healthcare SaaS: soft light theme, calm blue/green, rounded cards
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
+ 
+:root{
+  --bg: #F5F9F8;
+  --surface: #FFFFFF;
+  --surface-alt: #EEF5F3;
+  --border: #DCE7E3;
+  --border-soft: #E9F1EE;
+  --ink: #16302B;
+  --ink-soft: #52685F;
+  --ink-faint: #86988F;
+  --primary: #2F7A63;
+  --primary-dark: #1F5C49;
+  --primary-tint: #E3F2EC;
+  --primary-ring: rgba(47,122,99,0.18);
+ 
+  --cat-cardio: #DD6E5C;
+  --cat-cardio-tint: #FBEBE8;
+  --cat-blood: #B5506E;
+  --cat-blood-tint: #F8EAEF;
+  --cat-lungs: #4A8FC4;
+  --cat-lungs-tint: #E9F2FA;
+  --cat-kidney: #C08A34;
+  --cat-kidney-tint: #FBF1DF;
+  --cat-neuro: #7E67C6;
+  --cat-neuro-tint: #EFECFA;
+  --cat-general: #2F7A63;
+  --cat-general-tint: #E3F2EC;
+ 
+  --warn: #B5506E;
+  --warn-tint: #F8EAEF;
+ 
+  --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+ 
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --shadow-sm: 0 1px 2px rgba(22,48,43,0.06);
+  --shadow-md: 0 8px 24px rgba(22,48,43,0.08);
+  --shadow-lg: 0 16px 40px rgba(22,48,43,0.12);
+}
+ 
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--font-body); font-size:16px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{ font-family:var(--font-display); color:var(--ink); line-height:1.2; margin:0 0 12px; }
+h1{ font-size:clamp(32px, 4vw, 46px); font-weight:800; letter-spacing:-0.02em; }
+h2{ font-size:26px; font-weight:700; letter-spacing:-0.01em; }
+h3{ font-size:19px; font-weight:700; }
+p{ margin:0 0 14px; color:var(--ink-soft); }
+a{ color:var(--primary); text-decoration:none; }
+::selection{ background:var(--primary-tint); color:var(--primary-dark); }
+:focus-visible{ outline:2.5px solid var(--primary); outline-offset:2px; border-radius:6px; }
+ 
+.wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+ 
+/* NAVBAR */
+.site-nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border-soft);
+}
+.site-nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:72px; gap:20px; }
+.brand{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:800; font-size:17px; color:var(--ink); }
+.brand .pulse-mark{ width:26px; height:18px; flex-shrink:0; }
+.brand .pulse-mark path{ fill:none; stroke:var(--primary); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.nav-links{ display:flex; align-items:center; gap:30px; flex:1; }
+.nav-links a{
+  color:var(--ink-soft); font-weight:600; font-size:14.5px;
+  padding:6px 0; border-bottom:2px solid transparent;
+  transition:color .18s ease, border-color .18s ease; cursor:pointer;
+}
+.nav-links a:hover{ color:var(--primary); border-color:var(--primary); }
+.nav-links a.active{ color:var(--primary); border-color:var(--primary); }
+.nav-actions{ display:flex; align-items:center; gap:10px; }
+.user-chip{ display:flex; align-items:center; gap:9px; font-size:14px; font-weight:700; color:var(--ink); }
+.user-chip .avatar{
+  width:30px; height:30px; border-radius:50%; background:var(--primary-tint);
+  color:var(--primary-dark); display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:13px; flex-shrink:0;
+}
+ 
+/* FAVORITES NAV DROPDOWN */
+.fav-nav-wrap{ position:relative; flex-shrink:0; }
+.fav-nav-btn{ position:relative; display:inline-flex; align-items:center; gap:7px; }
+.fav-nav-btn svg{ width:16px; height:16px; stroke:var(--ink-soft); fill:none; stroke-width:2; transition:all .15s ease; }
+.fav-nav-btn.has-favs svg{ fill:var(--primary); stroke:var(--primary); }
+.fav-count-badge{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:18px; height:18px; padding:0 5px; border-radius:999px;
+  background:var(--primary); color:#fff; font-size:11px; font-weight:700; font-family:var(--font-mono);
+}
+.fav-count-badge.zero{ display:none; }
+.fav-dropdown{
+  position:absolute; top:calc(100% + 10px); right:0; width:320px; max-height:60vh; overflow-y:auto;
+  background:#fff; border:1px solid var(--border-soft); border-radius:var(--radius-md);
+  box-shadow:var(--shadow-lg); padding:10px; display:none; z-index:100;
+}
+.fav-dropdown.open{ display:block; }
+.fav-dropdown-head{ display:flex; align-items:center; justify-content:space-between; padding:6px 8px 10px; }
+.fav-dropdown-head h4{ margin:0; font-size:12px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); font-weight:700; font-family:var(--font-mono); }
+.fav-drop-empty{ padding:30px 16px; text-align:center; color:var(--ink-faint); font-size:13.5px; line-height:1.6; }
+.fav-drop-item{
+  display:flex; align-items:center; gap:10px; padding:10px 10px; border-radius:10px;
+  text-decoration:none; color:inherit; transition:background .15s ease;
+}
+.fav-drop-item:hover{ background:var(--surface-alt); }
+.fav-drop-dot{ width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+.fav-drop-text{ flex:1; min-width:0; }
+.fav-drop-name{ display:block; font-weight:700; font-size:14px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.fav-drop-cat{ display:block; font-size:12px; color:var(--ink-faint); margin-top:1px; }
+.fav-drop-remove{
+  border:none; background:transparent; color:var(--ink-faint); font-size:17px; line-height:1; cursor:pointer;
+  width:24px; height:24px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  transition:all .15s ease;
+}
+.fav-drop-remove:hover{ background:var(--warn-tint); color:var(--warn); }
+@media (max-width:640px){ .fav-dropdown{ width:280px; right:-40px; } }
+ 
+/* BUTTONS */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  font-family:var(--font-body); font-weight:600; font-size:14.5px;
+  padding:11px 22px; border-radius:999px; border:1.5px solid transparent;
+  cursor:pointer; transition:all .18s ease; white-space:nowrap;
+}
+.btn-primary{ background:var(--primary); color:#fff; }
+.btn-primary:hover{ background:var(--primary-dark); transform:translateY(-1px); box-shadow:var(--shadow-sm); }
+.btn-primary:disabled{ opacity:0.55; cursor:not-allowed; transform:none; box-shadow:none; }
+.btn-ghost{ background:transparent; color:var(--ink); border-color:var(--border); }
+.btn-ghost:hover{ border-color:var(--primary); color:var(--primary); }
+.btn-block{ width:100%; }
+.btn-sm{ padding:8px 16px; font-size:13.5px; }
+ 
+/* PAGE HERO */
+.page-hero{
+  position:relative; overflow:hidden; border-bottom:1px solid var(--border-soft);
+  background:
+    radial-gradient(520px 260px at 92% -30%, rgba(47,122,99,0.14) 0%, transparent 70%),
+    linear-gradient(180deg, var(--primary-tint) 0%, #f1f8f4 100%);
+  padding:52px 0 46px;
+}
+.breadcrumb{ display:flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--ink-faint); margin-bottom:18px; }
+.breadcrumb a{ color:var(--ink-faint); font-weight:600; transition:color .15s ease; }
+.breadcrumb a:hover{ color:var(--primary); }
+.breadcrumb .sep{ color:var(--border); font-weight:400; }
+.breadcrumb .current{ color:var(--primary); }
+.page-tag{
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:var(--font-mono); font-size:11.5px; font-weight:700;
+  letter-spacing:0.08em; text-transform:uppercase; color:#fff;
+  background:linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  padding:6px 14px; border-radius:999px; margin-bottom:18px;
+  box-shadow:0 6px 16px rgba(47,122,99,0.28);
+}
+.page-tag .dot{ width:6px; height:6px; border-radius:50%; background:#fff; }
+.page-hero h1{ font-size:clamp(30px, 3.6vw, 40px); margin-bottom:12px; max-width:640px; }
+.page-hero p{ max-width:600px; margin:0; font-size:16.5px; color:var(--ink-soft); }
+ 
+.page-body{ padding:52px 0 80px; }
+ 
+.feedback-layout{ display:grid; grid-template-columns:1.2fr 0.8fr; gap:26px; align-items:start; }
+@media (max-width:900px){ .feedback-layout{ grid-template-columns:1fr; } }
+ 
+.panel{
+  background:var(--surface); border:1px solid var(--border-soft);
+  border-radius:var(--radius-md); padding:30px; box-shadow:var(--shadow-sm);
+}
+.panel h2{ font-size:18px; margin-bottom:6px; }
+.panel .panel-sub{ font-size:13.5px; margin-bottom:22px; }
+ 
+.field{ margin-bottom:18px; }
+.field label{ display:block; font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:7px; }
+.field .optional{ font-weight:500; color:var(--ink-faint); }
+.field input, .field select, .field textarea{
+  width:100%; padding:13px 14px; font-size:15px; font-family:var(--font-body);
+  border:1.5px solid var(--border); border-radius:var(--radius-sm);
+  background:#fff; color:var(--ink); transition:border-color .16s ease, box-shadow .16s ease;
+}
+.field textarea{ resize:vertical; min-height:120px; font-family:var(--font-body); }
+.field input:focus, .field select:focus, .field textarea:focus{
+  outline:none; border-color:var(--primary); box-shadow:0 0 0 4px var(--primary-ring);
+}
+.field input::placeholder, .field textarea::placeholder{ color:var(--ink-faint); }
+ 
+/* Category chip select */
+.chip-group{ display:flex; flex-wrap:wrap; gap:8px; }
+.chip{
+  padding:8px 14px; border-radius:999px; border:1.5px solid var(--border);
+  font-size:13.5px; font-weight:600; color:var(--ink-soft); cursor:pointer;
+  transition:all .15s ease; background:#fff; user-select:none;
+}
+.chip:hover{ border-color:var(--primary-tint); }
+.chip.active{ background:var(--primary); border-color:var(--primary); color:#fff; }
+ 
+/* Star rating */
+.rating-group{ display:flex; align-items:center; gap:6px; }
+.rating-star{
+  width:30px; height:30px; cursor:pointer; padding:2px; background:none; border:none;
+}
+.rating-star svg{ width:100%; height:100%; stroke:var(--border); fill:none; stroke-width:1.8; transition:all .15s ease; }
+.rating-star.active svg{ fill:#F2B84B; stroke:#F2B84B; }
+.rating-star:hover svg{ stroke:#F2B84B; }
+.rating-label{ font-size:13px; color:var(--ink-faint); margin-left:8px; min-width:70px; }
+ 
+.field-actions{ display:flex; gap:10px; margin-top:8px; }
+ 
+.form-error{ font-size:13px; color:var(--warn); background:var(--warn-tint); padding:10px 12px; border-radius:8px; margin-bottom:16px; display:none; }
+.form-error.show{ display:block; }
+ 
+.success-state{ text-align:center; padding:30px 10px; display:none; }
+.success-state.show{ display:block; }
+.success-state .check-circle{
+  width:56px; height:56px; border-radius:50%; background:var(--primary-tint);
+  display:flex; align-items:center; justify-content:center; margin:0 auto 18px;
+}
+.success-state .check-circle svg{ width:26px; height:26px; stroke:var(--primary); fill:none; stroke-width:2.4; }
+.success-state h3{ font-size:19px; margin-bottom:6px; }
+.success-state p{ font-size:14px; max-width:340px; margin:0 auto 20px; }
+ 
+/* Side panel: quick contact + recent submissions (local only) */
+.contact-list{ display:flex; flex-direction:column; gap:14px; margin-top:6px; }
+.contact-row{ display:flex; align-items:center; gap:12px; }
+.contact-row .icon-dot{
+  width:36px; height:36px; border-radius:10px; background:var(--primary-tint);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.contact-row .icon-dot svg{ width:16px; height:16px; stroke:var(--primary); fill:none; stroke-width:2; }
+.contact-row div b{ display:block; font-size:14px; color:var(--ink); }
+.contact-row div span{ font-size:13px; color:var(--ink-faint); }
+ 
+.recent-list{ display:flex; flex-direction:column; gap:10px; margin-top:6px; max-height:280px; overflow-y:auto; }
+.recent-item{ border:1px solid var(--border-soft); border-radius:var(--radius-sm); padding:12px 14px; }
+.recent-item .recent-top{ display:flex; align-items:center; justify-content:between; gap:8px; margin-bottom:4px; }
+.recent-item .recent-stars{ display:flex; gap:1px; }
+.recent-item .recent-stars svg{ width:12px; height:12px; fill:#F2B84B; stroke:#F2B84B; stroke-width:1.5; }
+.recent-item .recent-cat{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--primary); margin-bottom:4px; }
+.recent-item .recent-msg{ font-size:13px; color:var(--ink-soft); line-height:1.5; }
+.recent-empty{ font-size:13.5px; color:var(--ink-faint); text-align:center; padding:20px 10px; }
+ 
+/* FOOTER */
+.site-footer{ background:var(--ink); color:rgba(255,255,255,0.75); padding:52px 0 26px; margin-top:60px; }
+.footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; margin-bottom:36px; }
+.footer-brand{ font-family:var(--font-display); font-weight:800; color:#fff; font-size:16px; margin-bottom:10px; }
+.footer-col h4{ color:#fff; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:14px; font-family:var(--font-body); font-weight:700; }
+.footer-col a{ display:block; color:rgba(255,255,255,0.65); font-size:14px; margin-bottom:9px; }
+.footer-col a:hover{ color:#fff; }
+.footer-bottom{ border-top:1px solid rgba(255,255,255,0.12); padding-top:20px; font-size:13px; color:rgba(255,255,255,0.45); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+@media (max-width:800px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+ 
+/* AUTH MODAL */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(22,48,43,0.45);
+  display:none; align-items:center; justify-content:center; z-index:200; padding:20px;
+}
+.modal-overlay.open{ display:flex; }
+.modal-card{
+  background:#fff; border-radius:var(--radius-lg); padding:32px;
+  width:100%; max-width:380px; box-shadow:var(--shadow-lg); position:relative;
+}
+.modal-close{
+  position:absolute; top:16px; right:16px; width:30px; height:30px; border-radius:50%;
+  border:none; background:var(--surface-alt); cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.modal-close svg{ width:14px; height:14px; stroke:var(--ink-faint); fill:none; stroke-width:2.2; }
+.modal-tabs{ display:flex; gap:6px; background:var(--surface-alt); padding:4px; border-radius:999px; margin-bottom:22px; }
+.modal-tab{ flex:1; text-align:center; padding:9px; border-radius:999px; font-weight:700; font-size:13.5px; cursor:pointer; color:var(--ink-soft); transition:all .15s ease; }
+.modal-tab.active{ background:#fff; color:var(--primary-dark); box-shadow:var(--shadow-sm); }
+.modal-error{ font-size:13px; color:var(--warn); background:var(--warn-tint); padding:10px 12px; border-radius:8px; margin-bottom:14px; display:none; }
+.modal-error.show{ display:block; }
+.modal-title{ font-size:19px; margin-bottom:4px; }
+.modal-sub{ font-size:13.5px; margin-bottom:20px; }
+ 
+/* FAVORITES POPUP */
+.fav-empty{
+  background:var(--surface); border:1.5px dashed var(--border); border-radius:var(--radius-md);
+  padding:32px 24px; text-align:center; color:var(--ink-faint);
+}
+.fav-empty h3{ color:var(--ink); margin-bottom:6px; font-size:16px; }
+.fav-empty p{ margin:0; font-size:13.5px; }
+.fav-modal-list{ display:flex; flex-direction:column; gap:10px; max-height:56vh; overflow-y:auto; margin-top:4px; }
+.fav-item{
+  display:flex; align-items:center; gap:12px; padding:12px 14px;
+  border:1px solid var(--border-soft); border-radius:var(--radius-sm);
+  text-decoration:none; color:inherit; transition:border-color .15s ease, transform .15s ease;
+}
+.fav-item:hover{ border-color:var(--primary-tint); transform:translateX(2px); }
+.fav-item-dot{ width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.fav-item-name{ font-weight:700; font-size:14.5px; color:var(--ink); }
+.fav-item-cat{ font-size:12px; color:var(--ink-faint); margin-top:1px; }
+.fav-item-go{ width:14px; height:14px; stroke:var(--ink-faint); fill:none; stroke-width:2; margin-left:auto; flex-shrink:0; }
+</style>
+</head>
+<body>
+ 
+<!-- NAVBAR -->
+<nav class="site-nav">
+  <div class="wrap">
+    <a href="homepage.html" class="brand">
+      <svg class="pulse-mark" viewBox="0 0 26 18"><path d="M0 9h6l2.5-7 5 16 3-9h9.5"/></svg>
+      Smart Medical Calculator
+    </a>
+    <div class="nav-links">
+      <a href="homepage.html">Home</a>
+      <a href="homepage.html#categories">Calculators</a>
+      <a href="aboutus.html">About Us</a>
+      <a href="feedback.html" class="active">Feedback</a>
+    </div>
+
+    <div class="fav-nav-wrap">
+      <button type="button" class="btn btn-ghost btn-sm fav-nav-btn" id="favNavBtn" onclick="toggleFavDropdown(event)" aria-haspopup="true" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>
+        Favorites
+        <span class="fav-count-badge zero" id="favCountBadge">0</span>
+      </button>
+      <div class="fav-dropdown" id="favDropdown">
+        <div class="fav-dropdown-head"><h4>Your favorites</h4></div>
+        <div id="favDropdownList"></div>
+      </div>
+    </div>
+
+    <div class="nav-actions" id="navAuthArea">
+      <button class="btn btn-ghost btn-sm" onclick="openAuth('login')">Log in</button>
+      <button class="btn btn-primary btn-sm" onclick="openAuth('signup')">Sign up</button>
+    </div>
+  </div>
+</nav>
+ 
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumb">
+      <a href="homepage.html">Home</a> <span class="sep">/</span> <span class="current">Feedback</span>
+    </div>
+    <span class="page-tag"><span class="dot"></span>Feedback</span>
+    <h1>Tell us what's working — and what isn't.</h1>
+    <p>Found a bug, want a calculator we don't have yet, or just have a rating? This goes straight into our backlog.</p>
+  </div>
+</header>
+ 
+<main class="page-body">
+  <div class="wrap">
+    <div class="feedback-layout">
+ 
+      <!-- FEEDBACK FORM -->
+      <div class="panel">
+        <h2>Share your feedback</h2>
+        <p class="panel-sub">Takes under a minute. Name and email are optional.</p>
+ 
+        <div class="form-error" id="fbError"></div>
+ 
+        <form id="feedbackForm" onsubmit="handleFeedbackSubmit(event)">
+ 
+          <div class="field">
+            <label>What's this about?</label>
+            <div class="chip-group" id="fbCategoryGroup">
+              <div class="chip active" data-value="General">General</div>
+              <div class="chip" data-value="Bug report">Bug report</div>
+              <div class="chip" data-value="New calculator">New calculator</div>
+              <div class="chip" data-value="Accuracy issue">Accuracy issue</div>
+              <div class="chip" data-value="Design / UX">Design / UX</div>
+            </div>
+          </div>
+ 
+          <div class="field">
+            <label>How would you rate your experience? <span class="optional">(optional)</span></label>
+            <div class="rating-group" id="fbRatingGroup">
+              <button type="button" class="rating-star" data-value="1" onclick="setRating(1)"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg></button>
+              <button type="button" class="rating-star" data-value="2" onclick="setRating(2)"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg></button>
+              <button type="button" class="rating-star" data-value="3" onclick="setRating(3)"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg></button>
+              <button type="button" class="rating-star" data-value="4" onclick="setRating(4)"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg></button>
+              <button type="button" class="rating-star" data-value="5" onclick="setRating(5)"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg></button>
+              <span class="rating-label" id="fbRatingLabel"></span>
+            </div>
+          </div>
+ 
+          <div class="field">
+            <label>Your message</label>
+            <textarea id="fbMessage" placeholder="What happened, what you'd like to see, or what you think of the site..." required></textarea>
+          </div>
+ 
+          <div class="field">
+            <label>Name <span class="optional">(optional)</span></label>
+            <input type="text" id="fbName" placeholder="Your name">
+          </div>
+ 
+          <div class="field">
+            <label>Email <span class="optional">(optional, if you'd like a reply)</span></label>
+            <input type="email" id="fbEmail" placeholder="you@example.com">
+          </div>
+ 
+          <div class="field-actions">
+            <button type="submit" class="btn btn-primary btn-block" id="fbSubmitBtn">Send feedback</button>
+          </div>
+        </form>
+ 
+        <div class="success-state" id="fbSuccess">
+          <div class="check-circle"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <h3>Thanks — feedback received</h3>
+          <p>We read every submission. If you left an email and it needs a reply, we'll get back to you.</p>
+          <button type="button" class="btn btn-ghost btn-sm" onclick="resetFeedbackForm()">Send another</button>
+        </div>
+      </div>
+ 
+      <!-- SIDE PANEL -->
+      <div>
+        <div class="panel" style="margin-bottom:20px;">
+          <h2>Other ways to reach us</h2>
+          <p class="panel-sub">For anything urgent, skip the form.</p>
+          <div class="contact-list">
+            <div class="contact-row">
+              <div class="icon-dot"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+              <div><b>Email</b><span>support@medicalcalc.com</span></div>
+            </div>
+            <div class="contact-row">
+              <div class="icon-dot"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg></div>
+              <div><b>Phone</b><span>+91 8668008783</span></div>
+            </div>
+            <div class="contact-row">
+              <div class="icon-dot"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+              <div><b>Location</b><span>India</span></div>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="panel">
+          <h2>Your recent submissions</h2>
+          <p class="panel-sub">Stored only in this browser, so only you can see this.</p>
+          <div class="recent-list" id="fbRecentList"></div>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</main>
+ 
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Smart Medical Calculator</div>
+        <p style="color:rgba(255,255,255,0.6); font-size:14px; max-width:280px;">
+          A focused set of clinical calculators built for students and healthcare professionals.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="homepage.html">Home</a>
+        <a href="cardiopage/cardiodashboard.html">Calculators</a>
+        <a href="#" onclick="openFavModal(event)">Favorites</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="feedback.html">Feedback</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a>support@medicalcalc.com</a>
+        <a>+91 8668008783</a>
+        <a>India</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Smart Medical Calculator</span>
+      <span>For educational &amp; clinical decision-support use — not a replacement for clinical judgment.</span>
+    </div>
+  </div>
+</footer>
+ 
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authOverlay">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeAuth()" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="modal-tabs">
+      <div class="modal-tab active" id="tabLoginBtn" onclick="switchTab('login')">Log in</div>
+      <div class="modal-tab" id="tabSignupBtn" onclick="switchTab('signup')">Sign up</div>
+    </div>
+    <div class="modal-error" id="authError"></div>
+    <form id="formLogin" onsubmit="handleLogin(event)">
+      <div class="field"><label>Email</label><input type="email" id="liEmail" placeholder="you@example.com" required></div>
+      <div class="field"><label>Password</label><input type="password" id="liPass" placeholder="••••••••" required></div>
+      <button type="submit" class="btn btn-primary btn-block">Log in</button>
+    </form>
+    <form id="formSignup" onsubmit="handleSignup(event)" style="display:none;">
+      <div class="field"><label>Name</label><input type="text" id="suName" placeholder="Your name" required></div>
+      <div class="field"><label>Email</label><input type="email" id="suEmail" placeholder="you@example.com" required></div>
+      <div class="field"><label>Password</label><input type="password" id="suPass" placeholder="Create a password (min 6 chars)" required minlength="6"></div>
+      <button type="submit" class="btn btn-primary btn-block">Create account</button>
+    </form>
+    <p style="font-size:12.5px; color:var(--ink-faint); margin:16px 0 0; text-align:center;">
+      Demo authentication — your account is stored only in this browser, not on a real server.
+    </p>
+  </div>
+</div>
+ 
+<!-- FAVORITES POPUP -->
+<div class="modal-overlay" id="favOverlay">
+  <div class="modal-card" style="max-width:440px;">
+    <button class="modal-close" onclick="closeFavModal()" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <h3 class="modal-title">Your favorite calculators</h3>
+    <p class="modal-sub">Tick the star on any calculator inside a specialty to pin it here.</p>
+    <div id="favModalContent"></div>
+  </div>
+</div>
+ 
+<script src="favorites.js"></script>
+<script>
+/* AUTH — demo login/signup, stored in this browser only (localStorage) */
+const SMC_USERS_KEY = 'smc_users';
+const SMC_SESSION_KEY = 'smc_current_user';
+function smcGetUsers(){ try { return JSON.parse(localStorage.getItem(SMC_USERS_KEY)) || []; } catch(e){ return []; } }
+function smcSaveUsers(users){ localStorage.setItem(SMC_USERS_KEY, JSON.stringify(users)); }
+function smcGetSession(){ try { return JSON.parse(localStorage.getItem(SMC_SESSION_KEY)) || null; } catch(e){ return null; } }
+function smcSetSession(user){
+  if(user){ localStorage.setItem(SMC_SESSION_KEY, JSON.stringify(user)); }
+  else{ localStorage.removeItem(SMC_SESSION_KEY); }
+  renderAuthArea();
+}
+function smcInitials(name){ return (name || '?').trim().split(/\s+/).slice(0,2).map(w => w[0].toUpperCase()).join(''); }
+function renderAuthArea(){
+  const area = document.getElementById('navAuthArea');
+  if(!area) return;
+  const user = smcGetSession();
+  if(user){
+    area.innerHTML = `
+      <div class="user-chip">
+        <div class="avatar">${smcInitials(user.name)}</div>
+        <span>${user.name}</span>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="handleLogout()">Log out</button>
+    `;
+  } else {
+    area.innerHTML = `
+      <button class="btn btn-ghost btn-sm" onclick="openAuth('login')">Log in</button>
+      <button class="btn btn-primary btn-sm" onclick="openAuth('signup')">Sign up</button>
+    `;
+  }
+}
+function showAuthError(msg){ const el = document.getElementById('authError'); el.textContent = msg; el.classList.add('show'); }
+function clearAuthError(){ const el = document.getElementById('authError'); el.textContent = ''; el.classList.remove('show'); }
+function openAuth(mode){ clearAuthError(); document.getElementById('authOverlay').classList.add('open'); switchTab(mode || 'login'); }
+function closeAuth(){
+  document.getElementById('authOverlay').classList.remove('open');
+  clearAuthError();
+  document.getElementById('formLogin').reset();
+  document.getElementById('formSignup').reset();
+}
+function switchTab(tab){
+  clearAuthError();
+  const isLogin = tab === 'login';
+  document.getElementById('tabLoginBtn').classList.toggle('active', isLogin);
+  document.getElementById('tabSignupBtn').classList.toggle('active', !isLogin);
+  document.getElementById('formLogin').style.display = isLogin ? 'block' : 'none';
+  document.getElementById('formSignup').style.display = isLogin ? 'none' : 'block';
+}
+function handleLogin(event){
+  event.preventDefault();
+  clearAuthError();
+  const email = document.getElementById('liEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('liPass').value;
+  const users = smcGetUsers();
+  const match = users.find(u => u.email === email && u.password === pass);
+  if(!match){ showAuthError('No account matches that email and password.'); return; }
+  smcSetSession({ name: match.name, email: match.email });
+  closeAuth();
+}
+function handleSignup(event){
+  event.preventDefault();
+  clearAuthError();
+  const name = document.getElementById('suName').value.trim();
+  const email = document.getElementById('suEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('suPass').value;
+  if(pass.length < 6){ showAuthError('Password must be at least 6 characters.'); return; }
+  const users = smcGetUsers();
+  if(users.some(u => u.email === email)){ showAuthError('An account with that email already exists — try logging in instead.'); return; }
+  users.push({ name, email, password: pass });
+  smcSaveUsers(users);
+  smcSetSession({ name, email });
+  closeAuth();
+}
+function handleLogout(){ smcSetSession(null); }
+ 
+/* FAVORITES — localStorage-backed list, shared with every page */
+const SMC_FAV_KEY = 'smc_favorites';
+function smcGetFavorites(){ try { return JSON.parse(localStorage.getItem(SMC_FAV_KEY)) || []; } catch(e){ return []; } }
+function smcSaveFavorites(favs){ localStorage.setItem(SMC_FAV_KEY, JSON.stringify(favs)); }
+function smcRemoveFavoriteByUrl(url){
+  const favs = smcGetFavorites().filter(f => f.url !== url);
+  smcSaveFavorites(favs);
+  renderFavDropdown();
+  if(document.getElementById('favOverlay').classList.contains('open')){ renderFavModal(); }
+}
+function openFavModal(event){
+  if(event) event.preventDefault();
+  renderFavModal();
+  document.getElementById('favOverlay').classList.add('open');
+}
+function closeFavModal(){ document.getElementById('favOverlay').classList.remove('open'); }
+function renderFavModal(){
+  const favs = smcGetFavorites();
+  const content = document.getElementById('favModalContent');
+  if(!favs.length){
+    content.innerHTML = `<div class="fav-empty"><h3>No favorites yet</h3><p>Star a calculator from inside any specialty to see it here.</p></div>`;
+    return;
+  }
+  content.innerHTML = `<div class="fav-modal-list">${favs.map(f => `
+    <a href="${f.url}" class="fav-item">
+      <span class="fav-item-dot" style="background:${f.color || 'var(--primary)'}"></span>
+      <span>
+        <span class="fav-item-name">${f.name}</span>
+        <div class="fav-item-cat">${f.category || ''}</div>
+      </span>
+      <svg class="fav-item-go" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>`).join('')}</div>`;
+}
+function toggleFavDropdown(e){
+  if(e) e.stopPropagation();
+  const dd = document.getElementById('favDropdown');
+  const btn = document.getElementById('favNavBtn');
+  const isOpen = dd.classList.contains('open');
+  if(isOpen){ dd.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  else{ renderFavDropdown(); dd.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+}
+function closeFavDropdown(){
+  const dd = document.getElementById('favDropdown');
+  const btn = document.getElementById('favNavBtn');
+  if(dd) dd.classList.remove('open');
+  if(btn) btn.setAttribute('aria-expanded', 'false');
+}
+function renderFavDropdown(){
+  const favs = smcGetFavorites();
+  const list = document.getElementById('favDropdownList');
+  const badge = document.getElementById('favCountBadge');
+  const btn = document.getElementById('favNavBtn');
+  if(!list || !badge || !btn) return;
+  badge.textContent = favs.length;
+  badge.classList.toggle('zero', favs.length === 0);
+  btn.classList.toggle('has-favs', favs.length > 0);
+  if(!favs.length){
+    list.innerHTML = `<div class="fav-drop-empty">No favorites yet.<br>Star a calculator on any dashboard to see it here.</div>`;
+    return;
+  }
+  list.innerHTML = favs.map(f => `
+    <a href="${f.url}" class="fav-drop-item">
+      <span class="fav-drop-dot" style="background:${f.color || 'var(--primary)'}"></span>
+      <span class="fav-drop-text">
+        <span class="fav-drop-name">${f.name}</span>
+        <span class="fav-drop-cat">${f.category || ''}</span>
+      </span>
+      <button type="button" class="fav-drop-remove" onclick="event.preventDefault(); event.stopPropagation(); smcRemoveFavoriteByUrl('${f.url}');" aria-label="Remove ${f.name} from favorites">&times;</button>
+    </a>`).join('');
+}
+document.addEventListener('click', function(e){
+  const wrap = document.querySelector('.fav-nav-wrap');
+  if(wrap && !wrap.contains(e.target)){ closeFavDropdown(); }
+});
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeFavDropdown(); });
+document.addEventListener('click', function(e){
+  if(e.target.classList && e.target.classList.contains('modal-overlay')){ e.target.classList.remove('open'); }
+});
+ 
+/* ==========================================================================
+   FEEDBACK FORM — stored locally under 'smc_feedback' (demo, no real server)
+   ========================================================================== */
+const SMC_FEEDBACK_KEY = 'smc_feedback';
+let fbSelectedCategory = 'General';
+let fbSelectedRating = 0;
+const RATING_LABELS = { 0:'', 1:'Poor', 2:'Fair', 3:'Good', 4:'Very good', 5:'Excellent' };
+ 
+function smcGetFeedback(){ try { return JSON.parse(localStorage.getItem(SMC_FEEDBACK_KEY)) || []; } catch(e){ return []; } }
+function smcSaveFeedback(list){ localStorage.setItem(SMC_FEEDBACK_KEY, JSON.stringify(list)); }
+ 
+document.querySelectorAll('#fbCategoryGroup .chip').forEach(function(chip){
+  chip.addEventListener('click', function(){
+    document.querySelectorAll('#fbCategoryGroup .chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    fbSelectedCategory = chip.getAttribute('data-value');
+  });
+});
+ 
+function setRating(value){
+  fbSelectedRating = value;
+  document.querySelectorAll('#fbRatingGroup .rating-star').forEach(function(star){
+    star.classList.toggle('active', parseInt(star.getAttribute('data-value'), 10) <= value);
+  });
+  document.getElementById('fbRatingLabel').textContent = RATING_LABELS[value] || '';
+}
+ 
+function showFbError(msg){ const el = document.getElementById('fbError'); el.textContent = msg; el.classList.add('show'); }
+function clearFbError(){ const el = document.getElementById('fbError'); el.textContent = ''; el.classList.remove('show'); }
+ 
+function handleFeedbackSubmit(event){
+  event.preventDefault();
+  clearFbError();
+ 
+  const message = document.getElementById('fbMessage').value.trim();
+  if(!message){
+    showFbError('Please add a message before sending.');
+    return;
+  }
+ 
+  const entry = {
+    category: fbSelectedCategory,
+    rating: fbSelectedRating,
+    message: message,
+    name: document.getElementById('fbName').value.trim(),
+    email: document.getElementById('fbEmail').value.trim(),
+    ts: Date.now()
+  };
+ 
+  const list = smcGetFeedback();
+  list.unshift(entry);
+  smcSaveFeedback(list);
+ 
+  document.getElementById('feedbackForm').style.display = 'none';
+  document.getElementById('fbSuccess').classList.add('show');
+  renderRecentFeedback();
+}
+ 
+function resetFeedbackForm(){
+  document.getElementById('feedbackForm').reset();
+  document.getElementById('feedbackForm').style.display = 'block';
+  document.getElementById('fbSuccess').classList.remove('show');
+  clearFbError();
+  document.querySelectorAll('#fbCategoryGroup .chip').forEach(c => c.classList.remove('active'));
+  document.querySelector('#fbCategoryGroup .chip[data-value="General"]').classList.add('active');
+  fbSelectedCategory = 'General';
+  setRating(0);
+}
+ 
+function fbTimeAgo(ts){
+  const diffMin = Math.round((Date.now() - ts) / 60000);
+  if(diffMin < 1) return 'just now';
+  if(diffMin < 60) return diffMin + 'm ago';
+  const diffHr = Math.round(diffMin / 60);
+  if(diffHr < 24) return diffHr + 'h ago';
+  return Math.round(diffHr / 24) + 'd ago';
+}
+ 
+function renderRecentFeedback(){
+  const list = smcGetFeedback();
+  const el = document.getElementById('fbRecentList');
+  if(!list.length){
+    el.innerHTML = `<div class="recent-empty">No submissions yet — your feedback will appear here.</div>`;
+    return;
+  }
+  el.innerHTML = list.slice(0, 6).map(function(item){
+    const stars = Array.from({length:5}, function(_, i){
+      return i < item.rating
+        ? '<svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 6.9L12 17.3 5.8 20.8l1.6-6.9L2 9.2l7.1-.6L12 2z"/></svg>'
+        : '';
+    }).join('');
+    return `
+      <div class="recent-item">
+        <div class="recent-cat">${item.category} &middot; ${fbTimeAgo(item.ts)}</div>
+        ${item.rating ? `<div class="recent-stars">${stars}</div>` : ''}
+        <div class="recent-msg">${item.message}</div>
+      </div>`;
+  }).join('');
+}
+ 
+document.addEventListener('DOMContentLoaded', function(){
+  renderAuthArea();
+  renderFavDropdown();
+  renderRecentFeedback();
+});
+</script>
+ 
+</body>
+</html>
