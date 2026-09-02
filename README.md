@@ -117,17 +117,21 @@ Screenshots
 The project includes category dashboards for each clinical specialty, and these screenshots match the files currently stored in the repository.
 
 <p align="center">
-  <img src="screen-short/cardicdashboard.png" width="32%" height="220px" alt="Cardiac dashboard screenshot">
+  <img src="screen-short/cardicdashboard.png" width="32%" 
+    height="220px" alt="Cardiac dashboard screenshot">
   <img src="screen-short/nerurodashbord.png" width="32%"
-  height="220px" alt="Neurology dashboard screenshot">
+    height="220px" alt="Neurology dashboard screenshot">
   <img src="screen-short/Renaldashboard.png" width="32%" 
-  height="220px" alt="Renal dashboard screenshot">
+    height="220px" alt="Renal dashboard screenshot">
 </p>
 <p align="center">
 
-  <img src="screen-short/Respiratorydashboard.png" width="32%" height="150px" alt="Respiratory dashboard screenshot">
-  <img src="screen-short/gendraldashboard.png" width="32%" height="150px" alt="General health dashboard screenshot">
-  <img src="screen-short/blooddashboard.png" width="32%" height="150px" alt="Blood dashboard screenshot">
+  <img src="screen-short/Respiratorydashboard.png" width="32%" 
+    height="220px" alt="Respiratory dashboard screenshot">
+  <img src="screen-short/gendraldashboard.png" width="32%" 
+    height="220px" alt="General health dashboard screenshot">
+  <img src="screen-short/blooddashboard.png" width="32%" 
+    height="220px" alt="Blood dashboard screenshot">
 </p>
 
 Tech Stack
